@@ -1,0 +1,123 @@
+---
+import Button from '@/components/Button.astro'
+import Card from '@/components/Card.astro'
+import Section from '@/components/Section.astro'
+import SkillLayout from '@/components/SkillLayout.astro'
+import PageLayout from '@/layouts/BaseLayout.astro'
+
+const languages = ['PHP', 'Javascript']
+const frontend = ['React', 'Vue']
+const backend = ['Laravel', 'Symfony']
+const others = ['AWS', 'MySQL', 'Oracle SQL', 'Redis', 'RabbitMQ', 'Docker']
+---
+
+<PageLayout meta={{ title: 'About Me' }}>
+	<div class='w-full'>
+		<Button title='Back' href='/' style='button'>
+			<svg
+				xmlns='http://www.w3.org/2000/svg'
+				width='14'
+				height='14'
+				viewBox='0 0 24 24'
+				slot='icon-before'
+			>
+				<path
+					fill='currentColor'
+					d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
+				>
+				</path>
+			</svg>
+		</Button>
+
+		<div class='mt-5 flex w-full flex-col gap-y-10'>
+			<Section title='Experience'>
+				<Card
+					heading='Backend Software Engineer | PHP - Symfony'
+					subheading='Printi'
+					date='Apr 2023 - Present'
+					altText='Printi'
+					imageClass='h-12 w-auto md:-left-16'
+				>
+					<ul class='ml-4 list-disc text-muted-foreground'>
+						<li>Participating in the logistic squad improving old features and creating new ones.</li>
+					</ul>
+				</Card>
+				<Card
+					heading='Backend Software Engineer | PHP - Symfony'
+					subheading='Datum TI'
+					date='Sep 2022 - Apr 2023'
+					altText='Datum TI'
+					imageClass='h-12 w-auto md:-left-16'
+				>
+					<b>Brasil TecPar Client:</b>
+					<ul class='ml-4 list-disc text-muted-foreground'>
+						<li>Creating new features and resolving bugs in the ERP for ISPs.</li>
+						<li>Integrating APIS using Symfony v4.3-6.0, Oracle Database, RabbitMQ.</li>
+					</ul>
+				</Card>
+				<Card
+					heading='Junior Backend Software Engineer | PHP - Laravel'
+					subheading='Cloudfox'
+					date='Apr 2021 - Jun 2022'
+					altText='Cloudfox'
+					imageClass='h-12 w-auto md:-left-16'
+				>
+					<ul class='ml-4 list-disc text-muted-foreground'>
+						<li>Developed and maintained features in the anti-fraud system and resolved bugs in the internal system to support the team that analyzes fraud cases.</li>
+						<li>Improved the efficiency and accuracy of the system removing some third party apis by implementing the feature internally in the system, and changing some features to use third party that was more otimized.</li>
+					</ul>
+				</Card>
+				<Card
+					heading='Backend Software Engineer Intern | PHP - Laravel'
+					subheading='KBR TEC - Web & Software'
+					date='Oct 2019 - Mar 2021'
+					altText='KBR TEC - Web & Software'
+					imageClass='h-12 w-auto md:-left-16'
+				>
+					<ul class='ml-4 list-disc text-muted-foreground'>
+						<li>Created with the others interns a project to manage internal info like password, configurations, and status of running projects.</li>
+						<li>Developed and maintained the back end of sites from admin panel, to specific features like a hotel agenda to see prices in different days and times, controlled in the admin panel.</li>
+						<li>Deployed Laravel sites in a shared server, ensuring smooth and reliable operation.</li>
+					</ul>
+				</Card>
+			</Section>
+			<Section title='Certifications'>
+				<Card
+					as='a'
+					heading='Curso de Apache Kafka'
+					subheading='Full Cycle'
+					date='May 2024'
+					altText='Full Cycle'
+					imageClass='h-11 w-auto md:-left-16'
+					href='https://fullcycle.com.br/certificado/ce9f76a1-6ac1-4d03-9524-e66676d23393'
+				/>
+				<Card
+					as='a'
+					heading='Curso de Docker'
+					subheading='Full Cycle'
+					date='Dec 2023'
+					altText='Full Cycle'
+					imageClass='h-11 w-auto md:-left-16'
+					href='https://fullcycle.com.br/certificado/9af5d329-0cb8-489a-bc40-02880cd826ba'
+				/>
+				<Card
+					as='a'
+					heading='Curso de Fundamentos da arquitetura de software'
+					subheading='Full Cycle'
+					date='Dec 2023'
+					altText='Full Cycle'
+					imageClass='h-11 w-auto md:-left-16'
+					href='https://fullcycle.com.br/certificado/2f693e93-1f7b-4a05-8b24-481838ed2a0e'
+				/>
+			</Section>
+	
+			<Section title='Skills'>
+				<SkillLayout title='Languages' skills={languages} />
+				<SkillLayout title='Frontend' skills={frontend} />
+				<SkillLayout title='Backend' skills={backend} />
+				<SkillLayout title='Others' skills={others} />
+			</Section>
+
+		</div>
+	</div>
+</PageLayout>
