@@ -3,12 +3,6 @@ import Label from '../components/Label.astro'
 import Section from '../components/Section.astro'
 import PageLayout from '../layouts/BaseLayout.astro'
 
-
-import { getAllPosts, sortMDByDate } from '@/utils'
-
-const MAX_POSTS = 10
-const allPosts = await getAllPosts()
-const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -59,40 +53,5 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				I have made significant contributions to the development and implementation of new features across several software projects, demonstrating a versatile skill set in creating and managing websites ranging from news portals and blogs to landing pages and e-commerce sites. A notable achievement in my career was my participation in a small team that significantly improved an internal fraud detection system, which not only heightened efficiency and accuracy but also substantially increased sales and profit margins by eliminating the need for third-party APIs and embracing in-house feature development.
 			</p>
 		</Section>
-
-		<!-- {
-			allPostsByDate.length > 0 && (
-				<Section title='Posts'>
-					<ul class='flex flex-col gap-y-2'>
-						{allPostsByDate.map((p) => (
-							<li class='flex flex-col gap-x-2 sm:flex-row'>
-								<PostPreview post={p} />
-							</li>
-						))}
-					</ul>
-				</Section>
-			)
-		} -->
-
-		<!-- <Section title='Projects'>
-			<div class='flex flex-col gap-y-3 sm:flex-row sm:gap-x-3 sm:gap-y-0'>
-				<ProjectCard
-					href='https://www.google.com'
-					heading='Consectetur'
-					subheading='Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-					imagePath='/src/assets/coming-soon.png'
-					altText='Example'
-					class='w-full sm:w-1/2'
-				/>
-				<ProjectCard
-					as='div'
-					heading='Coming soon...'
-					subheading=''
-					imagePath='/src/assets/coming-soon.png'
-					altText='Lorem, ipsum dolor sit'
-					class='w-full sm:w-1/2'
-				/>
-			</div>
-		</Section> -->
 	</div>
 </PageLayout>
