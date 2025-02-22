@@ -2,7 +2,6 @@
 import Label from '../components/Label.astro'
 import Section from '../components/Section.astro'
 import PageLayout from '../layouts/BaseLayout.astro'
-
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -10,6 +9,9 @@ import PageLayout from '../layouts/BaseLayout.astro'
 		<section class='flex flex-col items-center gap-y-7'>
 			<div class='flex flex-col items-center gap-y-4'>
 				<h1 class='text-3xl font-bold'>Weslley Richard</h1>
+				<p class='text-muted-foreground'>
+					"It is better to be a warrior in a garden, than a gardener in a war."
+				</p>
 				<div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
 					<Label title='Printi'>
 						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
@@ -19,7 +21,7 @@ import PageLayout from '../layouts/BaseLayout.astro'
 							></path></svg
 						>
 					</Label>
-					<Label title='Brazil'>
+					<Label title='Praia Grande, SP - Brazil'>
 						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
 							><path
 								fill='currentColor'
@@ -50,7 +52,26 @@ import PageLayout from '../layouts/BaseLayout.astro'
 
 		<Section title='About'>
 			<p class='text-muted-foreground'>
-				I have made significant contributions to the development and implementation of new features across several software projects, demonstrating a versatile skill set in creating and managing websites ranging from news portals and blogs to landing pages and e-commerce sites. A notable achievement in my career was my participation in a small team that significantly improved an internal fraud detection system, which not only heightened efficiency and accuracy but also substantially increased sales and profit margins by eliminating the need for third-party APIs and embracing in-house feature development.
+				I’m Weslley Richard, a PHP Backend Software Engineer with a product mindset delivering
+				solutions that go beyond the initial idea to address what is truly needed, whether for agile
+				startups or large-scale enterprise environments. I specialize in transforming innovative
+				concepts into fully realized, production-ready products.
+			</p>
+			<p class='text-muted-foreground'>
+				My experience spans developing robust full-stack solutions in agile startup settings to
+				architecting enterprise-grade systems for big companies. By leveraging technologies like
+				PHP, Symfony, Laravel, AWS (SNS, SQS, Lambda), and Docker, I build scalable microservices
+				that not only meet today’s requirements but also anticipate future needs. Even without a
+				formal leadership title, I actively support and mentor my colleagues, fostering an
+				environment where international teams collaborate effectively. I contribute ideas from my
+				hands-on experience, ensuring that projects move seamlessly from concept to implementation
+				with a clear vision and practical execution.
+			</p>
+
+			<p class='text-muted-foreground'>
+				If you’re looking for a partner who can take an idea from inception to a comprehensive
+				solution tailored for complex, high-demand settings, feel free to reach out at
+				<a href='mailto:weslleyrichardc@gmail.com'>weslleyrichardc@gmail.com</a>.
 			</p>
 		</Section>
 	</div>

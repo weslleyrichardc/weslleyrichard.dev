@@ -2,14 +2,7 @@
 import Button from '@/components/Button.astro'
 import Card from '@/components/Card.astro'
 import Section from '@/components/Section.astro'
-import SkillLayout from '@/components/SkillLayout.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
-
-const languages = ['PHP', 'Javascript']
-const frontend = ['React', 'Vue']
-const backend = ['Laravel', 'Symfony']
-const others = ['AWS', 'MySQL', 'Oracle SQL', 'Redis', 'RabbitMQ', 'Docker']
-
 ---
 
 <PageLayout meta={{ title: 'About Me' }}>
@@ -38,49 +31,86 @@ const others = ['AWS', 'MySQL', 'Oracle SQL', 'Redis', 'RabbitMQ', 'Docker']
 					date='Apr 2023 - Present'
 					altText='Printi'
 					imageClass='h-12 w-auto md:-left-16'
-				>
-					<ul class='ml-4 list-disc text-muted-foreground'>
-						<li>Participating in the logistic squad improving old features and creating new ones.</li>
-					</ul>
-				</Card>
+					as='a'
+					href='https://www.linkedin.com/in/weslleyrichardc'
+				/>
 				<Card
 					heading='Backend Software Engineer | PHP - Symfony'
 					subheading='Datum TI'
 					date='Sep 2022 - Apr 2023'
 					altText='Datum TI'
 					imageClass='h-12 w-auto md:-left-16'
-				>
-					<b>Brasil TecPar Client:</b>
-					<ul class='ml-4 list-disc text-muted-foreground'>
-						<li>Creating new features and resolving bugs in the ERP for ISPs.</li>
-						<li>Integrating APIS using Symfony v4.3-6.0, Oracle Database, RabbitMQ.</li>
-					</ul>
-				</Card>
+					as='a'
+					href='https://www.linkedin.com/in/weslleyrichardc'
+				/>
 				<Card
-					heading='Junior Backend Software Engineer | PHP - Laravel'
+					heading='Full Stack Software Engineer | PHP - Laravel | Alpine JS - React'
 					subheading='Cloudfox'
 					date='Apr 2021 - Jun 2022'
 					altText='Cloudfox'
 					imageClass='h-12 w-auto md:-left-16'
-				>
-					<ul class='ml-4 list-disc text-muted-foreground'>
-						<li>Developed and maintained features in the anti-fraud system and resolved bugs in the internal system to support the team that analyzes fraud cases.</li>
-						<li>Improved the efficiency and accuracy of the system removing some third party apis by implementing the feature internally in the system, and changing some features to use third party that was more otimized.</li>
-					</ul>
-				</Card>
+					as='a'
+					href='https://www.linkedin.com/in/weslleyrichardc'
+				/>
 				<Card
-					heading='Backend Software Engineer Intern | PHP - Laravel'
+					heading='Full Stack Software Engineer | PHP - Laravel | Vue'
 					subheading='KBR TEC - Web & Software'
 					date='Oct 2019 - Mar 2021'
 					altText='KBR TEC - Web & Software'
 					imageClass='h-12 w-auto md:-left-16'
-				>
-					<ul class='ml-4 list-disc text-muted-foreground'>
-						<li>Created with the others interns a project to manage internal info like password, configurations, and status of running projects.</li>
-						<li>Developed and maintained the back end of sites from admin panel, to specific features like a hotel agenda to see prices in different days and times, controlled in the admin panel.</li>
-						<li>Deployed Laravel sites in a shared server, ensuring smooth and reliable operation.</li>
-					</ul>
-				</Card>
+					as='a'
+					href='https://www.linkedin.com/in/weslleyrichardc'
+				/>
+			</Section>
+			<Section title='Technical Toolkit'>
+				<Card
+					heading='PHP (Laravel, Symfony)'
+					subheading='Backend'
+					altText='Backend - PHP (Laravel, Symfony)'
+					imageClass='h-12 w-auto md:-left-16'
+				/>
+				<Card
+					heading='JavaScript (React, Vue, AlpineJS)'
+					subheading='Frontend'
+					altText='Frontend - JavaScript (React, Vue, AlpineJS)'
+					imageClass='h-12 w-auto md:-left-16'
+				/>
+				<Card
+					heading='Docker'
+					subheading='Cloud & Infrastructure'
+					altText='Cloud & Infrastructure - Docker'
+					imageClass='h-12 w-auto md:-left-16'
+				/>
+				<Card
+					heading='AWS (SNS, SQS, Lambda)'
+					subheading='Cloud & Infrastructure'
+					altText='Cloud & Infrastructure - AWS (SNS, SQS, Lambda)'
+					imageClass='h-12 w-auto md:-left-16'
+				/>
+				<Card
+					heading='RabbitMQ'
+					subheading='Messaging & Queuing'
+					altText='Messaging & Queuing - RabbitMQ'
+					imageClass='h-12 w-auto md:-left-16'
+				/>
+				<Card
+					heading='SQL (MySQL, Oracle Database)'
+					subheading='Databases'
+					altText='Databases - MySQL, Oracle Database'
+					imageClass='h-12 w-auto md:-left-16'
+				/>
+				<Card
+					heading='NoSQL (MongoDB)'
+					subheading='Databases'
+					altText='Databases - NoSQL (MongoDB)'
+					imageClass='h-12 w-auto md:-left-16'
+				/>
+				<Card
+					heading='Redis'
+					subheading='Databases'
+					altText='Databases - Redis'
+					imageClass='h-12 w-auto md:-left-16'
+				/>
 			</Section>
 			<Section title='Certifications'>
 				<Card
@@ -111,13 +141,6 @@ const others = ['AWS', 'MySQL', 'Oracle SQL', 'Redis', 'RabbitMQ', 'Docker']
 					href='https://fullcycle.com.br/certificado/2f693e93-1f7b-4a05-8b24-481838ed2a0e'
 				/>
 			</Section>
-			<Section title='Skills'>
-				<SkillLayout title='Languages' skills={languages} />
-				<SkillLayout title='Frontend' skills={frontend} />
-				<SkillLayout title='Backend' skills={backend} />
-				<SkillLayout title='Others' skills={others} />
-			</Section>
-
 		</div>
 	</div>
 </PageLayout>
