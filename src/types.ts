@@ -10,12 +10,6 @@ export type SiteConfig = {
 	}
 }
 
-export type PaginationLink = {
-	url: string
-	text?: string
-	srLabel?: string
-}
-
 export type SiteMeta = {
 	title: string
 	description?: string
