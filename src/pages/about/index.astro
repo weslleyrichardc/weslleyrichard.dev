@@ -1,6 +1,5 @@
 ---
 import Button from '@/components/Button.astro'
-import Card from '@/components/Card.astro'
 import Section from '@/components/Section.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 ---
@@ -25,121 +24,72 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 
 		<div class='mt-5 flex w-full flex-col gap-y-10'>
 			<Section title='Experience'>
-				<Card
-					heading='Backend Software Engineer | PHP - Symfony'
-					subheading='Printi'
-					date='Apr 2023 - Present'
-					altText='Printi'
-					imageClass='h-12 w-auto md:-left-16'
-					as='a'
-					href='https://www.linkedin.com/in/weslleyrichardc'
-				/>
-				<Card
-					heading='Backend Software Engineer | PHP - Symfony'
-					subheading='Datum TI'
-					date='Sep 2022 - Apr 2023'
-					altText='Datum TI'
-					imageClass='h-12 w-auto md:-left-16'
-					as='a'
-					href='https://www.linkedin.com/in/weslleyrichardc'
-				/>
-				<Card
-					heading='Full Stack Software Engineer | PHP - Laravel | Alpine JS - React'
-					subheading='Cloudfox'
-					date='Apr 2021 - Jun 2022'
-					altText='Cloudfox'
-					imageClass='h-12 w-auto md:-left-16'
-					as='a'
-					href='https://www.linkedin.com/in/weslleyrichardc'
-				/>
-				<Card
-					heading='Full Stack Software Engineer | PHP - Laravel | Vue'
-					subheading='KBR TEC - Web & Software'
-					date='Oct 2019 - Mar 2021'
-					altText='KBR TEC - Web & Software'
-					imageClass='h-12 w-auto md:-left-16'
-					as='a'
-					href='https://www.linkedin.com/in/weslleyrichardc'
-				/>
+				<ul class='space-y-4 text-muted-foreground'>
+					<li>
+						<strong class='text-white'>PHP Backend Software Engineer</strong> at <a
+							href='https://www.printi.com.br'
+							target='_blank'
+							class='hover:underline'>Printi</a
+						> (Apr 2023 – Jul 2025)<br />
+						<p class='text-white'>
+							Designed scalable microservices using Symfony and AWS (Lambda, SQS) to enhance system
+							reliability. Led remote teams and mentored developers to meet sprint deadlines.
+						</p>
+					</li>
+					<li>
+						<strong class='text-white'>PHP Backend Software Engineer</strong> at <a
+							href='https://www.brasiltecpar.com.br/'
+							target='_blank'
+							class='hover:underline'>Brasil TecPar (Datum TI)</a
+						> (Sep 2022 – Apr 2023)<br />
+						<p class='text-white'>
+							Maintained critical integrations using Symfony and RabbitMQ; resolved cross-domain
+							networking challenges.
+						</p>
+					</li>
+					<li>
+						<strong class='text-white'>PHP Software Engineer</strong> at <a
+							href='https://cloudfox.net/'
+							target='_blank'
+							class='hover:underline'>Cloudfox</a
+						> (Apr 2021 – Jun 2022)<br />
+						<p class='text-white'>
+							Co-developed an anti-fraud system that reduced chargeback costs by ~60%. Built a
+							real-time decision dashboard using Alpine.js.
+						</p>
+					</li>
+					<li>
+						<strong class='text-white'>Software Engineer</strong> at <a
+							href='https://www.kbrtec.com.br'
+							target='_blank'
+							class='hover:underline'>KBR Tec</a
+						> (Oct 2019 – Mar 2021)<br />
+						<p class='text-white'>
+							Developed dynamic scheduling tools and internal management systems to centralize
+							project tracking.
+						</p>
+					</li>
+				</ul>
 			</Section>
-			<Section title='Technical Toolkit'>
-				<Card
-					heading='PHP (Laravel, Symfony)'
-					subheading='Backend'
-					altText='Backend - PHP (Laravel, Symfony)'
-					imageClass='h-12 w-auto md:-left-16'
-				/>
-				<Card
-					heading='JavaScript (React, Vue, AlpineJS)'
-					subheading='Frontend'
-					altText='Frontend - JavaScript (React, Vue, AlpineJS)'
-					imageClass='h-12 w-auto md:-left-16'
-				/>
-				<Card
-					heading='Docker'
-					subheading='Cloud & Infrastructure'
-					altText='Cloud & Infrastructure - Docker'
-					imageClass='h-12 w-auto md:-left-16'
-				/>
-				<Card
-					heading='AWS (SNS, SQS, Lambda)'
-					subheading='Cloud & Infrastructure'
-					altText='Cloud & Infrastructure - AWS (SNS, SQS, Lambda)'
-					imageClass='h-12 w-auto md:-left-16'
-				/>
-				<Card
-					heading='RabbitMQ'
-					subheading='Messaging & Queuing'
-					altText='Messaging & Queuing - RabbitMQ'
-					imageClass='h-12 w-auto md:-left-16'
-				/>
-				<Card
-					heading='SQL (MySQL, Oracle Database)'
-					subheading='Databases'
-					altText='Databases - MySQL, Oracle Database'
-					imageClass='h-12 w-auto md:-left-16'
-				/>
-				<Card
-					heading='NoSQL (MongoDB)'
-					subheading='Databases'
-					altText='Databases - NoSQL (MongoDB)'
-					imageClass='h-12 w-auto md:-left-16'
-				/>
-				<Card
-					heading='Redis'
-					subheading='Databases'
-					altText='Databases - Redis'
-					imageClass='h-12 w-auto md:-left-16'
-				/>
-			</Section>
-			<Section title='Certifications'>
-				<Card
-					as='a'
-					heading='Curso de Apache Kafka'
-					subheading='Full Cycle'
-					date='May 2024'
-					altText='Full Cycle'
-					imageClass='h-11 w-auto md:-left-16'
-					href='https://fullcycle.com.br/certificado/ce9f76a1-6ac1-4d03-9524-e66676d23393'
-				/>
-				<Card
-					as='a'
-					heading='Curso de Docker'
-					subheading='Full Cycle'
-					date='Dec 2023'
-					altText='Full Cycle'
-					imageClass='h-11 w-auto md:-left-16'
-					href='https://fullcycle.com.br/certificado/9af5d329-0cb8-489a-bc40-02880cd826ba'
-				/>
-				<Card
-					as='a'
-					heading='Curso de Fundamentos da arquitetura de software'
-					subheading='Full Cycle'
-					date='Dec 2023'
-					altText='Full Cycle'
-					imageClass='h-11 w-auto md:-left-16'
-					href='https://fullcycle.com.br/certificado/2f693e93-1f7b-4a05-8b24-481838ed2a0e'
-				/>
+			<Section title='Technical Stack'>
+				<ul class='space-y-2 text-muted-foreground'>
+					<li><strong class='text-white'>Backend:</strong> PHP (Symfony, Laravel), Go, Python</li>
+					<li>
+						<strong class='text-white'>Frontend:</strong> JavaScript (React, Vue, Alpine.js), Tailwind
+						CSS
+					</li>
+					<li>
+						<strong class='text-white'>Cloud & Infrastructure:</strong> AWS (SNS, SQS, EC2, Lambda),
+						Docker
+					</li>
+					<li><strong class='text-white'>Messaging & Queuing:</strong> RabbitMQ, Kafka</li>
+					<li>
+						<strong class='text-white'>Databases:</strong> MySQL, PostgreSQL, Oracle DB, MongoDB, Redis
+					</li>
+					<li>
+						<strong class='text-white'>Quality & DevOps:</strong> PHPUnit, SonarQube, Jenkins, CI/CD
+					</li>
+				</ul>
 			</Section>
 		</div>
 	</div>
