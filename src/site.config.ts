@@ -1,5 +1,5 @@
-import type { SiteConfig } from '@/types';
-import type { AstroExpressiveCodeOptions } from 'astro-expressive-code';
+import type { SiteConfig } from '@/types'
+import type { AstroExpressiveCodeOptions } from 'astro-expressive-code'
 
 export const siteConfig: SiteConfig = {
 	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
@@ -7,7 +7,7 @@ export const siteConfig: SiteConfig = {
 	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
 	title: 'Weslley Richard',
 	// Meta property used as the default description meta property
-	description: 'Weslley Richard\'s Site',
+	description: "Weslley Richard's Site",
 	// HTML lang property, found in src/layouts/Base.astro L:18
 	lang: 'en-US',
 	// Meta property, found in src/components/BaseHead.astro L:42
@@ -27,7 +27,7 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 	{
 		title: 'Home',
 		path: '/'
-	},
+	}
 ]
 
 // https://expressive-code.com/reference/configuration/
