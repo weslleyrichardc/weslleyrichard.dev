@@ -11,7 +11,7 @@ import {
 	CommandSeparator
 } from '@/components/ui/command'
 
-export function CommandPalette() {
+export default function CommandPalette() {
 	const [open, setOpen] = React.useState(false)
 
 	React.useEffect(() => {
