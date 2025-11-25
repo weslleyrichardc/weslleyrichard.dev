@@ -14,6 +14,7 @@ const { name, class: className = 'h-5 w-5' } = Astro.props
 	class={cn(className)}
 	viewBox={name === 'linkedin' ? '0 0 16 16' : '0 0 24 24'}
 	fill='currentColor'
+	aria-hidden='true'
 >
 	{
 		name === 'location' && (
