@@ -65,6 +65,16 @@ npm run build
 npm run preview
 ```
 
+### Development Workflow
+
+Before committing changes, ensure the project builds successfully:
+
+```bash
+pnpm run build
+```
+
+This command runs type checking and builds the project to catch any errors early.
+
 ## Customization
 
 - **Content:** Edit pages in `src/pages/` and components in `src/components/`
