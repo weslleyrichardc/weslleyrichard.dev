@@ -16,7 +16,10 @@ export function CommandPalette() {
 
 	React.useEffect(() => {
 		const down = (e: KeyboardEvent) => {
-			if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+			if (
+				e.key === '/' &&
+				!(e.target as HTMLElement).matches('input, textarea, [contenteditable]')
+			) {
 				e.preventDefault()
 				setOpen((open) => !open)
 			}
