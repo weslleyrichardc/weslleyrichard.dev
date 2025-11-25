@@ -1,0 +1,24 @@
+---
+export interface Props {
+  title: string
+  company: string
+  companyUrl: string
+  period: string
+  description: string
+}
+
+const { title, company, companyUrl, period, description } = Astro.props
+---
+
+<li class='flex flex-col gap-y-2'>
+  <div>
+    <strong class='text-foreground'>{title}</strong> at <a
+      href={companyUrl}
+      target='_blank'
+      class='hover:underline'>{company}</a
+    > ({period})
+  </div>
+  <p class='text-foreground'>
+    {description}
+  </p>
+</li>
