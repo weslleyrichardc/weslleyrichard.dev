@@ -11,41 +11,37 @@ import { remarkReadingTime } from './src/utils/remarkReadingTime.ts'
 
 import vercel from '@astrojs/vercel'
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://weslleyrichard.dev',
-	prefetch: true,
-	viewTransitions: true,
-	integrations: [
-		expressiveCode(expressiveCodeOptions),
-		tailwind({
-			applyBaseStyles: false
-		}),
-		sitemap(),
-		mdx(),
-		icon()
-	],
-	markdown: {
-		remarkPlugins: [remarkReadingTime],
-		rehypePlugins: [
-			rehypeUnwrapImages,
-			[
-				rehypeExternalLinks,
-				{
-					target: '_blank',
-					rel: ['nofollow, noopener, noreferrer']
-				}
-			]
-		],
-		remarkRehype: {
-			footnoteLabelProperties: {
-				className: ['']
-			}
-		}
-	},
-	prefetch: true,
-	output: 'server',
-	adapter: vercel({
-		webAnalytics: { enabled: true }
-	})
+    site: 'https://weslleyrichard.dev',
+    prefetch: true,
+    viewTransitions: true,
+    integrations: [expressiveCode(expressiveCodeOptions), tailwind({
+        applyBaseStyles: false
+		}), sitemap(), mdx(), icon(), react()],
+    markdown: {
+        remarkPlugins: [remarkReadingTime],
+        rehypePlugins: [
+            rehypeUnwrapImages,
+            [
+                rehypeExternalLinks,
+                {
+                    target: '_blank',
+                    rel: ['nofollow, noopener, noreferrer']
+                }
+            ]
+        ],
+        remarkRehype: {
+            footnoteLabelProperties: {
+                className: ['']
+            }
+        }
+    },
+    prefetch: true,
+    output: 'server',
+    adapter: vercel({
+        webAnalytics: { enabled: true }
+    })
 })
