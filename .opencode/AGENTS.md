@@ -5,7 +5,7 @@
 - **Build**: `astro check && astro build`
 - **Lint**: `prettier --write "**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro}" && eslint --fix "src/**/*.{js,ts,jsx,tsx,svelte,astro}"`
 - **Dev**: `astro check --watch & astro dev`
-- **Pre-commit**: `prettier --check "**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro}" && eslint "src/**/*.{js,ts,jsx,tsx,svelte,astro}"`
+- **Pre-commit**: `pnpm run lint && pnpm run build`
 - **No test framework** - run lint after changes to verify
 
 ## Code Style
