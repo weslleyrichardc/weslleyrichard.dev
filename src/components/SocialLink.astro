@@ -19,6 +19,12 @@ const href = siteConfig.socialLinks[name]
 const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
 ---
 
-<a class={cn(className)} href={href} target='_blank' rel='noopener noreferrer' aria-label={capitalizedName}>
+<a
+	class={cn(className)}
+	href={href}
+	target='_blank'
+	rel='noopener noreferrer'
+	aria-label={capitalizedName}
+>
 	<Icon name={name} class='h-4 w-4 flex-shrink-0' />
 </a>
