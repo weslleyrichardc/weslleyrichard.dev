@@ -11,7 +11,7 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 	<div class='flex flex-col gap-y-10'>
 		<div class='flex'>
 			<Button title='Back' href='/' style='button'>
-				<Icon name='back' slot='icon-before' class='w-3.5 h-3.5' />
+				<Icon name='back' slot='icon-before' class='h-3.5 w-3.5' />
 			</Button>
 		</div>
 
@@ -51,7 +51,10 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 			<ul class='space-y-2 text-foreground'>
 				<SkillBadge category='Backend' skills='PHP (Symfony, Laravel), Go, Python' />
 				<SkillBadge category='Frontend' skills='JavaScript (React, Vue, Alpine.js), Tailwind CSS' />
-				<SkillBadge category='Cloud & Infrastructure' skills='AWS (SNS, SQS, EC2, Lambda), Docker' />
+				<SkillBadge
+					category='Cloud & Infrastructure'
+					skills='AWS (SNS, SQS, EC2, Lambda), Docker'
+				/>
 				<SkillBadge category='Messaging & Queuing' skills='RabbitMQ, Kafka' />
 				<SkillBadge category='Databases' skills='MySQL, PostgreSQL, Oracle DB, MongoDB, Redis' />
 				<SkillBadge category='Quality & DevOps' skills='PHPUnit, SonarQube, Jenkins, CI/CD' />

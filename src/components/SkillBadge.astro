@@ -1,12 +1,13 @@
 ---
 export interface Props {
-  category: string
-  skills: string
+	category: string
+	skills: string
 }
 
 const { category, skills } = Astro.props
 ---
 
 <li>
-  <strong>{category}:</strong> {skills}
+	<strong>{category}:</strong>
+	{skills}
 </li>
