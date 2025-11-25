@@ -1,4 +1,6 @@
 ---
+import { cn } from '@/utils'
+
 export interface Props {
 	name: 'location' | 'linkedin' | 'sun' | 'moon' | 'back'
 	class?: string
@@ -9,7 +11,7 @@ const { name, class: className = 'h-5 w-5' } = Astro.props
 
 <svg
 	xmlns='http://www.w3.org/2000/svg'
-	class={className}
+	class={cn(className)}
 	viewBox={name === 'linkedin' ? '0 0 16 16' : '0 0 24 24'}
 	fill='currentColor'
 >
