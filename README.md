@@ -67,13 +67,21 @@ npm run preview
 
 ### Development Workflow
 
-Before committing changes, ensure the project builds successfully:
+Before committing changes, run the following commands to ensure code quality and build success:
 
-```bash
-pnpm run build
-```
+1. **Lint and format code:**
 
-This command runs type checking and builds the project to catch any errors early.
+   ```bash
+   pnpm run lint
+   ```
+
+   This formats files with Prettier and fixes ESLint issues.
+
+2. **Build the project:**
+   ```bash
+   pnpm run build
+   ```
+   This runs type checking and builds the project to catch any errors early.
 
 ## Customization
 
