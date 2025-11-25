@@ -15,4 +15,6 @@
 - **Naming**: camelCase functions, PascalCase components, kebab-case files
 - **Components**: Astro with TypeScript, destructure props, use cn() for classes
 - **Error Handling**: TypeScript strict null checks, handle edge cases
+- **Theme Testing**: Always test changes in both light and dark modes using the theme toggle
 - **Styling**: Tailwind CSS with clsx/cn utility for conditional classes
+- **Theming**: Use semantic color classes (text-foreground, text-muted-foreground). Never use hardcoded colors like text-white. See THEME.md in this directory for comprehensive theming guidelines.

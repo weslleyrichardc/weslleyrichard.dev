@@ -14,5 +14,5 @@ const { class: className, as: Tag = 'div', title, href, ...props } = Astro.props
 	{...props}
 >
 	<slot name='icon' />
-	<p>{title}</p>
+	<p class='text-foreground'>{title}</p>
 </Tag>

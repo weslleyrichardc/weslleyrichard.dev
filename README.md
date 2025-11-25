@@ -9,7 +9,8 @@ This is a modern, responsive personal portfolio website built with Astro and Tai
 - **Home Page:** Introduction, location, and contact links
 - **About Page:** Detailed professional experience and technical stack
 - **Responsive Design:** Optimized for all devices
-- **Clean UI:** Minimalist design with dark theme support
+- **Dark/Light Theme:** Full theme support with automatic system preference detection
+- **Semantic Theming:** Consistent color system using CSS custom properties
 
 The website serves as an online resume and a way for potential employers and collaborators to learn more about my work in backend development, microservices, and cloud technologies.
 
@@ -69,6 +70,18 @@ npm run preview
 - **Content:** Edit pages in `src/pages/` and components in `src/components/`
 - **Styling:** Modify Tailwind classes or update `tailwind.config.js`
 - **Site Config:** Update `src/site.config.ts` for site-wide settings
+- **Theming:** See [.opencode/THEME.md](./.opencode/THEME.md) for comprehensive theming documentation
+
+### Theming System
+
+The site includes a comprehensive theming system that supports both light and dark modes:
+
+- **Automatic Theme Detection:** Respects user's system preference
+- **Manual Toggle:** Theme switcher in the header
+- **Semantic Colors:** Uses `text-foreground`, `text-muted-foreground`, etc.
+- **Persistent Preference:** Saves user choice to localStorage
+
+For detailed theming guidelines, color usage, and best practices, refer to [.opencode/THEME.md](./.opencode/THEME.md).
 
 ## Deployment
 
