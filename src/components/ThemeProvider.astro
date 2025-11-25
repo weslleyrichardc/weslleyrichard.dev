@@ -32,11 +32,6 @@
 	// View Transitions hook to restore theme
 	document.addEventListener('astro:after-swap', () => setTheme(getUserPref()))
 
-	// Listen for theme-change custom event
-	document.addEventListener('theme-change', (e) => {
-		setTheme(e.detail.theme)
-	})
-
 	// Listen for prefers-color-scheme change
 	lightModePref.addEventListener('change', (e) => setTheme(e.matches ? 'light' : 'dark'))
 </script>

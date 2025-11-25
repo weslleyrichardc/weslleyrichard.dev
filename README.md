@@ -65,6 +65,24 @@ npm run build
 npm run preview
 ```
 
+### Development Workflow
+
+Before committing changes, run the following commands to ensure code quality and build success:
+
+1. **Lint and format code:**
+
+   ```bash
+   pnpm run lint
+   ```
+
+   This formats files with Prettier and fixes ESLint issues.
+
+2. **Build the project:**
+   ```bash
+   pnpm run build
+   ```
+   This runs type checking and builds the project to catch any errors early.
+
 ## Customization
 
 - **Content:** Edit pages in `src/pages/` and components in `src/components/`

@@ -1,0 +1,1 @@
+pnpm exec prettier --check "**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro}" && pnpm exec eslint "src/**/*.{js,ts,jsx,tsx,svelte,astro}" && npx astro check

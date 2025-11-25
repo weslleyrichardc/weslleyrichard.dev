@@ -1,6 +1,10 @@
 import getReadingTime from 'reading-time'
 import { toString } from 'mdast-util-to-string'
 
+/**
+ * Remark plugin to calculate and add reading time to frontmatter.
+ * @returns A remark plugin function
+ */
 export function remarkReadingTime() {
 	// @ts-expect-error:next-line
 	return function (tree, { data }) {

@@ -1,106 +1,55 @@
 ---
-import Button from '@/components/Button.astro'
 import Section from '@/components/Section.astro'
+import ExperienceItem from '@/components/ExperienceItem.astro'
+import SkillBadge from '@/components/SkillBadge.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 ---
 
 <PageLayout meta={{ title: 'About Me' }}>
 	<div class='flex flex-col gap-y-10'>
-		<div class='flex'>
-			<Button title='Back' href='/' style='button'>
-				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					width='14'
-					height='14'
-					viewBox='0 0 24 24'
-					slot='icon-before'
-				>
-					<path
-						fill='currentColor'
-						d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
-					>
-					</path>
-				</svg>
-			</Button>
-		</div>
-
 		<Section title='Experience'>
 			<ul class='space-y-4 text-muted-foreground'>
-				<li class='flex flex-col gap-y-2'>
-					<div>
-						<strong class='text-foreground'>PHP Backend Software Engineer</strong> at <a
-							href='https://www.printi.com.br'
-							target='_blank'
-							class='hover:underline'>Printi</a
-						> (Apr 2023 – Jul 2025)
-					</div>
-					<p class='text-foreground'>
-						Designed scalable microservices using Symfony and AWS (Lambda, SQS) to enhance system
-						reliability. Led remote teams and mentored developers to meet sprint deadlines.
-					</p>
-				</li>
-				<li class='flex flex-col gap-y-2'>
-					<div>
-						<strong class='text-foreground'>PHP Backend Software Engineer</strong> at <a
-							href='https://www.brasiltecpar.com.br/'
-							target='_blank'
-							class='hover:underline'>Brasil TecPar (Datum TI)</a
-						> (Sep 2022 – Apr 2023)
-					</div>
-					<p class='text-foreground'>
-						Maintained critical integrations using Symfony and RabbitMQ; resolved cross-domain
-						networking challenges.
-					</p>
-				</li>
-				<li class='flex flex-col gap-y-2'>
-					<div>
-						<strong class='text-foreground'>PHP Software Engineer</strong> at <a
-							href='https://cloudfox.net/'
-							target='_blank'
-							class='hover:underline'>Cloudfox</a
-						> (Apr 2021 – Jun 2022)
-					</div>
-					<p class='text-foreground'>
-						Co-developed an anti-fraud system that reduced chargeback costs by ~60%. Built a
-						real-time decision dashboard using Alpine.js.
-					</p>
-				</li>
-				<li class='flex flex-col gap-y-2'>
-					<div>
-						<strong class='text-foreground'>Software Engineer</strong> at <a
-							href='https://www.kbrtec.com.br'
-							target='_blank'
-							class='hover:underline'>KBR Tec</a
-						> (Oct 2019 – Mar 2021)
-					</div>
-					<p class='text-foreground'>
-						Developed dynamic scheduling tools and internal management systems to centralize
-						project tracking.
-					</p>
-				</li>
+				<ExperienceItem
+					title='PHP Backend Software Engineer'
+					company='Printi'
+					companyUrl='https://www.printi.com.br'
+					period='Apr 2023 – Jul 2025'
+					description='Designed scalable microservices using Symfony and AWS (Lambda, SQS) to enhance system reliability. Led remote teams and mentored developers to meet sprint deadlines.'
+				/>
+				<ExperienceItem
+					title='PHP Backend Software Engineer'
+					company='Brasil TecPar (Datum TI)'
+					companyUrl='https://www.brasiltecpar.com.br/'
+					period='Sep 2022 – Apr 2023'
+					description='Maintained critical integrations using Symfony and RabbitMQ; resolved cross-domain networking challenges.'
+				/>
+				<ExperienceItem
+					title='PHP Software Engineer'
+					company='Cloudfox'
+					companyUrl='https://cloudfox.net/'
+					period='Apr 2021 – Jun 2022'
+					description='Co-developed an anti-fraud system that reduced chargeback costs by ~60%. Built a real-time decision dashboard using Alpine.js.'
+				/>
+				<ExperienceItem
+					title='Software Engineer'
+					company='KBR Tec'
+					companyUrl='https://www.kbrtec.com.br'
+					period='Oct 2019 – Mar 2021'
+					description='Developed dynamic scheduling tools and internal management systems to centralize project tracking.'
+				/>
 			</ul>
 		</Section>
 		<Section title='Technical Stack'>
 			<ul class='space-y-2 text-foreground'>
-				<li>
-					<strong>Backend:</strong> PHP (Symfony, Laravel), Go, Python
-				</li>
-				<li>
-					<strong>Frontend:</strong> JavaScript (React, Vue, Alpine.js), Tailwind
-					CSS
-				</li>
-				<li>
-					<strong>Cloud & Infrastructure:</strong> AWS (SNS, SQS, EC2, Lambda),
-					Docker
-				</li>
-				<li><strong>Messaging & Queuing:</strong> RabbitMQ, Kafka</li>
-				<li>
-					<strong>Databases:</strong> MySQL, PostgreSQL, Oracle DB, MongoDB,
-					Redis
-				</li>
-				<li>
-					<strong>Quality & DevOps:</strong> PHPUnit, SonarQube, Jenkins, CI/CD
-				</li>
+				<SkillBadge category='Backend' skills='PHP (Symfony, Laravel), Go, Python' />
+				<SkillBadge category='Frontend' skills='JavaScript (React, Vue, Alpine.js), Tailwind CSS' />
+				<SkillBadge
+					category='Cloud & Infrastructure'
+					skills='AWS (SNS, SQS, EC2, Lambda), Docker'
+				/>
+				<SkillBadge category='Messaging & Queuing' skills='RabbitMQ, Kafka' />
+				<SkillBadge category='Databases' skills='MySQL, PostgreSQL, Oracle DB, MongoDB, Redis' />
+				<SkillBadge category='Quality & DevOps' skills='PHPUnit, SonarQube, Jenkins, CI/CD' />
 			</ul>
 		</Section>
 	</div>

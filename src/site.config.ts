@@ -20,6 +20,9 @@ export const siteConfig: SiteConfig = {
 			month: 'short',
 			year: 'numeric'
 		}
+	},
+	socialLinks: {
+		linkedin: 'https://www.linkedin.com/in/weslleyrichardc'
 	}
 }
 
