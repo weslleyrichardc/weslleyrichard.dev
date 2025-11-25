@@ -44,7 +44,13 @@ export function CommandPalette() {
 				</CommandGroup>
 				<CommandSeparator />
 				<CommandGroup heading='Theme'>
-					<CommandItem onSelect={() => document.documentElement.classList.toggle('dark')}>
+					<CommandItem
+						onSelect={() => {
+							const current = document.documentElement.classList.contains('dark') ? 'light' : 'dark'
+							localStorage.setItem('theme', current)
+							document.documentElement.classList.toggle('dark')
+						}}
+					>
 						Toggle Theme
 					</CommandItem>
 				</CommandGroup>
