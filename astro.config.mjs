@@ -14,6 +14,8 @@ import vercel from '@astrojs/vercel'
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://weslleyrichard.dev',
+	prefetch: true,
+	viewTransitions: true,
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
 		tailwind({
