@@ -5,8 +5,12 @@
 - **Build**: `astro check && astro build`
 - **Lint**: `prettier --write "**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro}" && eslint --fix "src/**/*.{js,ts,jsx,tsx,svelte,astro}"`
 - **Dev**: `astro check --watch & astro dev`
-- **Pre-commit**: `pnpm run lint && pnpm run build`
-- **No test framework** - run lint after changes to verify
+- **Pre-commit**: `prettier --check "**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro}" && eslint "src/**/*.{js,ts,jsx,tsx,svelte,astro}" && astro check`
+- **No test framework** - pre-commit hook verifies lint and type checks automatically
+
+## Configuration
+
+- **site.config.ts**: Contains site-wide settings like author, title, description, language, social links, and date formatting. Also includes `menuLinks` for navigation items and `expressiveCodeOptions` for code syntax highlighting (currently unused in this portfolio site but available for future features).
 
 ## Code Style
 
