@@ -10,6 +10,7 @@ export type SiteConfig = {
 	}
 	socialLinks: {
 		linkedin: string
+		github: string
 	}
 }
 
