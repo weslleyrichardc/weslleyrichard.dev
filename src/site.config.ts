@@ -23,7 +23,8 @@ export const siteConfig: SiteConfig = {
 	},
 	socialLinks: {
 		linkedin: 'https://www.linkedin.com/in/weslleyrichardc',
-		github: 'https://github.com/weslleyrichardc'
+		github: 'https://github.com/weslleyrichardc',
+		email: 'mailto:weslleyrichardc@gmail.com'
 	}
 }
 
