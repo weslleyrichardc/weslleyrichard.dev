@@ -8,6 +8,7 @@ This is a modern, responsive personal portfolio website built with Astro and Tai
 
 - **Home Page:** Introduction, location, and contact links
 - **About Page:** Detailed professional experience and technical stack
+- **Command Palette:** Quick navigation and actions with Ctrl+K shortcut, including Go To pages, Copy Link, View Source, and theme toggle
 - **Responsive Design:** Optimized for all devices
 - **Dark/Light Theme:** Full theme support with automatic system preference detection
 - **Semantic Theming:** Consistent color system using CSS custom properties
