@@ -17,7 +17,8 @@ export default function CommandPalette() {
 	React.useEffect(() => {
 		const down = (e: KeyboardEvent) => {
 			if (
-				e.key === '/' &&
+				e.key === 'k' &&
+				e.ctrlKey &&
 				!(e.target as HTMLElement).matches('input, textarea, [contenteditable]')
 			) {
 				e.preventDefault()
@@ -38,9 +39,26 @@ export default function CommandPalette() {
 			<CommandInput placeholder='Type a command or search...' />
 			<CommandList>
 				<CommandEmpty>No results found.</CommandEmpty>
-				<CommandGroup heading='Navigation'>
+				<CommandGroup heading='Go To'>
 					<CommandItem onSelect={() => (window.location.href = '/')}>Home</CommandItem>
 					<CommandItem onSelect={() => (window.location.href = '/about')}>About</CommandItem>
+				</CommandGroup>
+				<CommandSeparator />
+				<CommandGroup heading='General'>
+					<CommandItem
+						onSelect={() => {
+							navigator.clipboard.writeText(window.location.href)
+						}}
+					>
+						Copy Link
+					</CommandItem>
+					<CommandItem
+						onSelect={() =>
+							(window.location.href = 'https://github.com/weslleyrichardc/weslleyrichard.dev')
+						}
+					>
+						View Source
+					</CommandItem>
 				</CommandGroup>
 				<CommandSeparator />
 				<CommandGroup heading='Theme'>
