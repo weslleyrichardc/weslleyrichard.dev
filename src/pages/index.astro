@@ -35,12 +35,57 @@ import PageLayout from '../layouts/BaseLayout.astro'
 
 		<Section title='About'>
 			<p class='text-foreground'>
-				I am a Software Engineer with a product mindset, focused on delivering solutions that go
-				beyond code to address real business needs. My experience spans from agile startups to
-				large-scale enterprise environments. I specialize in architecting scalable microservices
-				using PHP (Symfony/Laravel), AWS, and Docker. I actively mentor teams and foster
-				collaboration to ensure projects move seamlessly from concept to execution.
+				I'm a Software Engineer with a product mindset, focused on solutions that go beyond code to
+				address real business needs. My experience spans agile startups and enterprise environments.
+				I specialize in architecting scalable microservices with PHP (Laravel, Symfony), AWS, and
+				Docker, and I actively mentor teams so projects move seamlessly from concept to execution.
 			</p>
+		</Section>
+
+		<Section title='Currently'>
+			<ul class='list-inside list-disc space-y-1 text-muted-foreground'>
+				<li>
+					Traveling and working remotely: Europe and Georgia so far, Asia next — going full nomad.
+				</li>
+				<li>
+					Open to remote roles (full-stack/backend, PHP/Laravel preferred), freelance, consulting,
+					part-time.
+				</li>
+				<li>Based in Tbilisi, Georgia (UTC+4).</li>
+			</ul>
+		</Section>
+
+		<Section title='Projects'>
+			<ul class='space-y-4'>
+				<li class='flex flex-col gap-y-1'>
+					<a
+						class='text-foreground hover:underline'
+						href='https://github.com/weslleyrichardc/realworld-symfony-alpine'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						realworld-symfony-alpine
+					</a>
+					<p class='text-muted-foreground'>
+						Full-stack Symfony and Alpine.js implementation of the RealWorld API spec, with JWT
+						authentication, PostgreSQL and Docker.
+					</p>
+				</li>
+				<li class='flex flex-col gap-y-1'>
+					<a
+						class='text-foreground hover:underline'
+						href='https://github.com/weslleyrichardc/movie-database-api'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						movie-database-api
+					</a>
+					<p class='text-muted-foreground'>
+						REST API for a movie catalog, with categories, images, pagination, filters and
+						token-based authentication.
+					</p>
+				</li>
+			</ul>
 		</Section>
 	</div>
 </PageLayout>
