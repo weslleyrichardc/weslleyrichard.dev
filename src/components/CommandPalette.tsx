@@ -42,6 +42,7 @@ export default function CommandPalette() {
 				<CommandGroup heading='Go To'>
 					<CommandItem onSelect={() => (window.location.href = '/')}>Home</CommandItem>
 					<CommandItem onSelect={() => (window.location.href = '/about')}>About</CommandItem>
+					<CommandItem onSelect={() => (window.location.href = '/resume')}>Resume</CommandItem>
 				</CommandGroup>
 				<CommandSeparator />
 				<CommandGroup heading='General'>

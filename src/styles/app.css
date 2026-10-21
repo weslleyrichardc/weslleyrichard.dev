@@ -80,3 +80,72 @@
 		display: none; /* Chrome, Safari and Opera */
 	}
 }
+
+/* The resume reads as a single column, both on screen and on paper. */
+.resume-page section {
+	display: block;
+}
+
+.resume-page section > div {
+	width: 100%;
+}
+
+.resume-page section > div + div {
+	margin-top: 0.75rem;
+}
+
+@media print {
+	/* Hide the site chrome so the printed page only holds the content. */
+	main > header,
+	main > footer {
+		display: none !important;
+	}
+
+	/* Use the whole sheet and drop the on-screen padding. */
+	main {
+		max-width: none !important;
+		padding: 0 !important;
+	}
+
+	/* Switch the two-column sections to a single column. */
+	section {
+		display: block !important;
+	}
+
+	section > div {
+		width: 100% !important;
+	}
+
+	section > div + div {
+		margin-top: 0.75rem;
+	}
+
+	/* Keep headings with their content and entries on a single page. */
+	h1,
+	h2 {
+		break-after: avoid;
+	}
+
+	li {
+		break-inside: avoid;
+	}
+
+	/* Tighten the vertical rhythm so the resume fits on a single sheet. */
+	.resume-page {
+		row-gap: 0.5rem !important;
+		font-size: 0.85rem;
+	}
+
+	.resume-page section > div + div {
+		margin-top: 0.3rem;
+	}
+
+	.resume-page ul > li + li {
+		margin-top: 0.5rem;
+	}
+
+	.resume-page p,
+	.resume-page li {
+		line-height: 1.45;
+	}
+}

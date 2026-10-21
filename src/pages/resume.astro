@@ -1,0 +1,115 @@
+---
+import Section from '@/components/Section.astro'
+import ExperienceItem from '@/components/ExperienceItem.astro'
+import SkillBadge from '@/components/SkillBadge.astro'
+import PageLayout from '@/layouts/BaseLayout.astro'
+---
+
+<PageLayout meta={{ title: 'Resume' }}>
+	<div class='resume-page flex w-full flex-col gap-y-10'>
+		<header class='flex flex-col gap-y-2'>
+			<h1 class='text-3xl font-bold'>Weslley Richard</h1>
+			<p class='text-muted-foreground'>
+				Backend Software Engineer · PHP / Laravel / Symfony — Tbilisi, Georgia (UTC+4)
+			</p>
+			<p class='text-muted-foreground'>
+				Open to remote full-stack/backend roles (PHP/Laravel preferred); freelance, consulting, and
+				part-time welcome.
+			</p>
+			<button
+				class='w-fit cursor-pointer rounded border border-border px-2 py-1 text-sm transition-all hover:bg-accent print:hidden'
+				onclick='window.print()'
+			>
+				Print / Save as PDF
+			</button>
+		</header>
+
+		<Section title='Profile'>
+			<p class='text-foreground'>
+				I'm a Software Engineer with a product mindset, focused on solutions that go beyond code to
+				address real business needs. My experience spans agile startups and enterprise environments.
+				I specialize in architecting scalable microservices with PHP (Laravel, Symfony), AWS, and
+				Docker, and I actively mentor teams so projects move seamlessly from concept to execution.
+			</p>
+		</Section>
+
+		<Section title='Experience'>
+			<ul class='space-y-4 text-muted-foreground'>
+				<ExperienceItem
+					title='PHP Backend Software Engineer'
+					company='Printi'
+					companyUrl='https://www.printi.com.br'
+					period='Apr 2023 – Jul 2025'
+					employmentType='Full-time'
+					description='Built scalable microservices with Symfony and AWS (SNS, SQS, Lambda); coordinated sprints and mentored developers, working with teams across India and Romania.'
+				/>
+				<ExperienceItem
+					title='PHP Backend Software Engineer'
+					company='Brasil TecPar (Datum TI)'
+					companyUrl='https://www.brasiltecpar.com.br/'
+					period='Sep 2022 – Apr 2023'
+					employmentType='Full-time'
+					description='Maintained critical integrations with Symfony, Oracle DB and RabbitMQ; expanded the platform for product integrations.'
+				/>
+				<ExperienceItem
+					title='Full Stack Software Engineer'
+					company='Cloudfox'
+					companyUrl='https://cloudfox.net/'
+					period='Apr 2021 – Jun 2022'
+					employmentType='Contract'
+					description='Co-developed an anti-fraud system that cut fraud and chargebacks by ~60%; built a real-time decision dashboard with Alpine.js.'
+				/>
+				<ExperienceItem
+					title='Full Stack Software Engineer'
+					company='KBR TEC'
+					companyUrl='https://www.kbrtec.com.br'
+					period='Oct 2019 – Mar 2021'
+					employmentType='Internship'
+					description='Built scheduling tools and internal management systems that centralized project tracking; delivered backends for client sites.'
+				/>
+			</ul>
+		</Section>
+
+		<Section title='Education'>
+			<ul class='space-y-2 text-foreground'>
+				<li>
+					<strong>ETEC Adolpho Berezin (Centro Paula Souza)</strong> — Computer Technician — Jul 2011
+					– Dec 2012
+				</li>
+			</ul>
+		</Section>
+
+		<Section title='Technical Stack'>
+			<ul class='space-y-2 text-foreground'>
+				<SkillBadge
+					category='Backend'
+					skills='PHP (Laravel, Symfony), Doctrine ORM, REST APIs, microservices, Node.js, Go, Python'
+				/>
+				<SkillBadge
+					category='Frontend'
+					skills='JavaScript (React, Vue, Alpine.js, Next.js), Tailwind CSS'
+				/>
+				<SkillBadge
+					category='Cloud & Infrastructure'
+					skills='AWS (SNS, SQS, EC2, Lambda, S3), Docker, Docker Compose'
+				/>
+				<SkillBadge category='Messaging & Queuing' skills='RabbitMQ, Kafka' />
+				<SkillBadge category='Databases' skills='MySQL, PostgreSQL, Oracle DB, MongoDB, Redis' />
+				<SkillBadge
+					category='Integrations'
+					skills='CRM (HubSpot), Payment (PagSeguro, Stripe, Adyen, Asaas)'
+				/>
+				<SkillBadge
+					category='Quality & DevOps'
+					skills='PHPUnit, SonarQube, Jenkins, CI/CD, SOLID principles'
+				/>
+			</ul>
+		</Section>
+
+		<Section title='Beyond code'>
+			<ul class='list-inside list-disc space-y-1 text-muted-foreground'>
+				<li>Built the EMG project, selected by SEBRAE for its startup program.</li>
+			</ul>
+		</Section>
+	</div>
+</PageLayout>
