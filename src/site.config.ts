@@ -7,7 +7,8 @@ export const siteConfig: SiteConfig = {
 	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
 	title: 'Weslley Richard',
 	// Meta property used as the default description meta property
-	description: "Weslley Richard's Site",
+	description:
+		'Backend Software Engineer focused on PHP, Laravel, Symfony, AWS and Docker. Based in Tbilisi, Georgia.',
 	// HTML lang property, found in src/layouts/Base.astro L:18
 	lang: 'en-US',
 	// Meta property, found in src/components/BaseHead.astro L:42
@@ -32,6 +33,10 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 	{
 		title: 'Home',
 		path: '/'
+	},
+	{
+		title: 'About Me',
+		path: '/about'
 	}
 ]
 
