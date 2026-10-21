@@ -17,17 +17,23 @@ The website serves as an online resume and a way for potential employers and col
 
 ## Technologies Used
 
-- **Framework:** [Astro](https://astro.build/) - Static site generator
+- **Framework:** [Astro](https://astro.build/) - Web framework with server-side rendering
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - **Language:** TypeScript, JavaScript
-- **Deployment:** Vercel (configured for static hosting)
+- **Deployment:** Vercel (serverless, via the `@astrojs/vercel` adapter)
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
-- npm or pnpm
+- Node.js (v22.22.0 or higher)
+- pnpm (v11.28.7, pinned in `package.json` via `packageManager`)
+
+  If `pnpm --version` does not match the pinned version, enable Corepack:
+
+  ```bash
+  corepack enable
+  ```
 
 ### Installation
 
@@ -41,15 +47,13 @@ The website serves as an online resume and a way for potential employers and col
 2. Install dependencies:
 
    ```bash
-   npm install
-   # or
    pnpm install
    ```
 
 3. Start the development server:
 
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
 4. Open [http://localhost:4321](http://localhost:4321) in your browser.
@@ -57,13 +61,13 @@ The website serves as an online resume and a way for potential employers and col
 ### Build for Production
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### Preview Production Build
 
 ```bash
-npm run preview
+pnpm run preview
 ```
 
 ### Development Workflow
