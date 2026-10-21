@@ -7,6 +7,14 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 
 <PageLayout meta={{ title: 'About Me' }}>
 	<div class='flex flex-col gap-y-10'>
+		<Section title='Profile'>
+			<p class='text-foreground'>
+				I'm a Software Engineer with a product mindset, focused on solutions that go beyond code to
+				address real business needs. My experience spans agile startups and enterprise environments.
+				I specialize in architecting scalable microservices with PHP (Laravel, Symfony), AWS, and
+				Docker, and I actively mentor teams so projects move seamlessly from concept to execution.
+			</p>
+		</Section>
 		<Section title='Experience'>
 			<ul class='space-y-4 text-muted-foreground'>
 				<ExperienceItem
@@ -14,42 +22,59 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 					company='Printi'
 					companyUrl='https://www.printi.com.br'
 					period='Apr 2023 – Jul 2025'
-					description='Designed scalable microservices using Symfony and AWS (Lambda, SQS) to enhance system reliability. Led remote teams and mentored developers to meet sprint deadlines.'
+					employmentType='Full-time'
+					description='Built scalable microservices with Symfony and AWS (SNS, SQS, Lambda); coordinated sprints and mentored developers, working with teams across India and Romania.'
 				/>
 				<ExperienceItem
 					title='PHP Backend Software Engineer'
 					company='Brasil TecPar (Datum TI)'
 					companyUrl='https://www.brasiltecpar.com.br/'
 					period='Sep 2022 – Apr 2023'
-					description='Maintained critical integrations using Symfony and RabbitMQ; resolved cross-domain networking challenges.'
+					employmentType='Full-time'
+					description='Maintained critical integrations with Symfony, Oracle DB and RabbitMQ; expanded the platform for product integrations.'
 				/>
 				<ExperienceItem
-					title='PHP Software Engineer'
+					title='Full Stack Software Engineer'
 					company='Cloudfox'
 					companyUrl='https://cloudfox.net/'
 					period='Apr 2021 – Jun 2022'
-					description='Co-developed an anti-fraud system that reduced chargeback costs by ~60%. Built a real-time decision dashboard using Alpine.js.'
+					employmentType='Contract'
+					description='Co-developed an anti-fraud system that cut fraud and chargebacks by ~60%; built a real-time decision dashboard with Alpine.js.'
 				/>
 				<ExperienceItem
-					title='Software Engineer'
-					company='KBR Tec'
+					title='Full Stack Software Engineer'
+					company='KBR TEC'
 					companyUrl='https://www.kbrtec.com.br'
 					period='Oct 2019 – Mar 2021'
-					description='Developed dynamic scheduling tools and internal management systems to centralize project tracking.'
+					employmentType='Internship'
+					description='Built scheduling tools and internal management systems that centralized project tracking; delivered backends for client sites.'
 				/>
 			</ul>
 		</Section>
 		<Section title='Technical Stack'>
 			<ul class='space-y-2 text-foreground'>
-				<SkillBadge category='Backend' skills='PHP (Symfony, Laravel), Go, Python' />
-				<SkillBadge category='Frontend' skills='JavaScript (React, Vue, Alpine.js), Tailwind CSS' />
+				<SkillBadge
+					category='Backend'
+					skills='PHP (Laravel, Symfony), Doctrine ORM, REST APIs, microservices, Node.js, Go, Python'
+				/>
+				<SkillBadge
+					category='Frontend'
+					skills='JavaScript (React, Vue, Alpine.js, Next.js), Tailwind CSS'
+				/>
 				<SkillBadge
 					category='Cloud & Infrastructure'
-					skills='AWS (SNS, SQS, EC2, Lambda), Docker'
+					skills='AWS (SNS, SQS, EC2, Lambda, S3), Docker, Docker Compose'
 				/>
 				<SkillBadge category='Messaging & Queuing' skills='RabbitMQ, Kafka' />
 				<SkillBadge category='Databases' skills='MySQL, PostgreSQL, Oracle DB, MongoDB, Redis' />
-				<SkillBadge category='Quality & DevOps' skills='PHPUnit, SonarQube, Jenkins, CI/CD' />
+				<SkillBadge
+					category='Integrations'
+					skills='CRM (HubSpot), Payment (PagSeguro, Stripe, Adyen, Asaas)'
+				/>
+				<SkillBadge
+					category='Quality & DevOps'
+					skills='PHPUnit, SonarQube, Jenkins, CI/CD, SOLID principles'
+				/>
 			</ul>
 		</Section>
 	</div>

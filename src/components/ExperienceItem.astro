@@ -5,9 +5,10 @@ export interface Props {
 	companyUrl: string
 	period: string
 	description: string
+	employmentType?: string
 }
 
-const { title, company, companyUrl, period, description } = Astro.props
+const { title, company, companyUrl, period, description, employmentType } = Astro.props
 ---
 
 <li class='flex flex-col gap-y-2'>
@@ -16,7 +17,7 @@ const { title, company, companyUrl, period, description } = Astro.props
 			href={companyUrl}
 			target='_blank'
 			class='hover:underline'>{company}</a
-		> ({period})
+		> ({period}){employmentType && <span class='text-muted-foreground'> · {employmentType}</span>}
 	</div>
 	<p class='text-foreground'>
 		{description}
