@@ -9,7 +9,7 @@ import SocialLink from '../../components/SocialLink.astro'
 		>
 			<div class='flex gap-x-4 text-sm'>
 				<p class=''>
-					© {new Date().getFullYear().toString()} Weslley Richard. All rights reserved.
+					© <span data-footer-year>2026</span> Weslley Richard. All rights reserved.
 				</p>
 			</div>
 
@@ -28,3 +28,17 @@ import SocialLink from '../../components/SocialLink.astro'
 		</div>
 	</div>
 </footer>
+
+<script is:inline>
+	// Year is rendered client-side so it never freezes at build time.
+	// Registered once; re-applied after each view transition via astro:page-load.
+	if (!window.__footerYearInit) {
+		window.__footerYearInit = true
+		const applyYear = () => {
+			document.querySelectorAll('[data-footer-year]').forEach((el) => {
+				el.textContent = new Date().getFullYear().toString()
+			})
+		}
+		document.addEventListener('astro:page-load', applyYear)
+	}
+</script>
