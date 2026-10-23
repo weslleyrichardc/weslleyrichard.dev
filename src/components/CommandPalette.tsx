@@ -1,6 +1,8 @@
 'use client'
 
 import * as React from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import {
 	ArrowLeftIcon,
 	CheckIcon,
@@ -49,13 +51,13 @@ export default function CommandPalette() {
 		window.setTimeout(() => setCopied(false), 1500)
 	}
 
-	// Auto-grow the question textarea so long questions wrap instead of
-	// scrolling out of view (capped, then it scrolls internally).
+	// Auto-grow the question textarea up to 2 lines so long questions stay
+	// visible without breaking the palette layout.
 	React.useEffect(() => {
 		const el = aiInputRef.current
 		if (!el) return
 		el.style.height = 'auto'
-		el.style.height = `${Math.min(el.scrollHeight, 160)}px`
+		el.style.height = `${Math.min(el.scrollHeight, 64)}px`
 	}, [aiQuestion, aiMode])
 
 	// "Scroll for more" cue: visible while the AI answer list actually has
@@ -139,7 +141,7 @@ export default function CommandPalette() {
 			{aiMode ? (
 				<>
 					<div className='flex items-start border-b px-3 pr-10'>
-						<MagnifyingGlassIcon className='mr-2 mt-3 h-4 w-4 shrink-0 opacity-50' />
+						<MagnifyingGlassIcon className='mr-2 mt-3.5 h-4 w-4 shrink-0 opacity-50' />
 						<textarea
 							ref={aiInputRef}
 							aria-label='Ask the browser AI'
@@ -159,7 +161,7 @@ export default function CommandPalette() {
 									void ask(aiQuestion)
 								}
 							}}
-							className='max-h-40 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground'
+							className='max-h-16 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground'
 						/>
 					</div>
 					<div className='flex items-center justify-between border-b px-3 py-1.5'>
@@ -205,10 +207,7 @@ export default function CommandPalette() {
 						</div>
 					</div>
 					<CommandList ref={listRef} onScroll={updateMoreBelow}>
-						<div
-							className='mb-1 whitespace-pre-wrap px-3 py-2 text-sm text-foreground'
-							aria-live='polite'
-						>
+						<div className='mb-1 px-3 py-2 text-sm text-foreground' aria-live='polite'>
 							{aiStatus === 'idle' && (
 								<p className='text-sm text-muted-foreground'>
 									Ask anything — the browser built-in AI answers on-device (private, offline, free)
@@ -216,9 +215,14 @@ export default function CommandPalette() {
 								</p>
 							)}
 							{aiAnswer && (
-								<blockquote className='border-l-2 border-border pl-3'>
-									{formatAiAnswer(aiAnswer)}
-								</blockquote>
+								<div
+									className='border-l-2 border-border pl-3 [&_a]:underline [&_blockquote]:border-l-2 [&_blockquote]:border-border [&_blockquote]:pl-3 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[0.875em] [&_h1]:my-2 [&_h1]:text-base [&_h1]:font-semibold [&_h2]:my-2 [&_h2]:text-sm [&_h2]:font-semibold [&_h3]:mt-2 [&_h3]:text-sm [&_h4]:mt-2 [&_h4]:text-sm [&_li]:my-0.5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-2 [&_p]:first:mt-0 [&_p]:last:mb-0 [&_pre]:my-2 [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:bg-muted [&_pre]:p-3 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_strong]:font-semibold [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5'
+									aria-live='polite'
+								>
+									<ReactMarkdown remarkPlugins={[remarkGfm]}>
+										{formatAiAnswer(aiAnswer)}
+									</ReactMarkdown>
+								</div>
 							)}
 							{aiStatus === 'error' && <p className='text-sm text-foreground'>{aiError}</p>}
 						</div>
