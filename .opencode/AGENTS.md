@@ -23,3 +23,9 @@
 - **Theme Testing**: Always test changes in both light and dark modes using the theme toggle
 - **Styling**: Tailwind CSS with clsx/cn utility for conditional classes
 - **Theming**: Use semantic color classes (text-foreground, text-muted-foreground). Never use hardcoded colors like text-white. See THEME.md in this directory for comprehensive theming guidelines.
+
+## Git Workflow
+
+- **Always create a branch for a change** — never commit directly to `main`
+- **Commit using Conventional Commits** (e.g. `fix:`, `feat:`, `chore:`, `docs:`, `refactor:`, `perf:`)
+- **Open a PR from the branch to `main`** (use `gh pr create`) when the change is ready for review
