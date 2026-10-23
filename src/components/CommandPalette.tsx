@@ -11,7 +11,13 @@ import {
 	CommandList,
 	CommandSeparator
 } from '@/components/ui/command'
-import { askAi, detectAi, destroyAiSession, getCurrentPageContext } from '@/lib/browser-ai'
+import {
+	askAi,
+	detectAi,
+	destroyAiSession,
+	formatAiAnswer,
+	getCurrentPageContext
+} from '@/lib/browser-ai'
 
 type AiStatus = 'idle' | 'thinking' | 'streaming' | 'done' | 'error'
 
@@ -133,7 +139,9 @@ export default function CommandPalette() {
 								<p className='text-sm text-muted-foreground'>Thinking…</p>
 							)}
 							{aiAnswer && (
-								<blockquote className='border-l-2 border-border pl-3'>{aiAnswer}</blockquote>
+								<blockquote className='border-l-2 border-border pl-3'>
+									{formatAiAnswer(aiAnswer)}
+								</blockquote>
 							)}
 							{aiStatus === 'error' && <p className='text-sm text-foreground'>{aiError}</p>}
 						</div>
@@ -151,7 +159,9 @@ export default function CommandPalette() {
 						{(aiStatus === 'done' || aiStatus === 'error' || aiStatus === 'streaming') && (
 							<CommandGroup heading='ACTIONS'>
 								{aiAnswer && (
-									<CommandItem onSelect={() => navigator.clipboard.writeText(aiAnswer)}>
+									<CommandItem
+										onSelect={() => navigator.clipboard.writeText(formatAiAnswer(aiAnswer))}
+									>
 										Copy Answer
 									</CommandItem>
 								)}

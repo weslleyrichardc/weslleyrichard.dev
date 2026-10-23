@@ -78,6 +78,17 @@ function createOptions(system?: string): { [key: string]: unknown } {
 }
 
 /**
+ * Clean the spacing Gemini Nano streaming leaves behind: doubled spaces
+ * from chunk joins and runs of blank lines between markdown paragraphs.
+ */
+export function formatAiAnswer(text: string): string {
+	return text
+		.replace(/[ \t]{2,}/g, ' ')
+		.replace(/ ?\n{3,}/g, '\n\n')
+		.trim()
+}
+
+/**
  * Snapshot of the page the visitor is reading, passed to the model as a
  * system prompt. Reads the main content (falling back to the body) and
  * strips the open command dialog (a Radix portal, `[role="dialog"]` — the
@@ -91,9 +102,6 @@ export function getCurrentPageContext(limit = 6000): string | undefined {
 		clone.querySelectorAll('[role="dialog"], [cmdk-dialog]').forEach((node) => node.remove())
 		const content = (clone.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, limit)
 		if (!content) return undefined
-		if (import.meta.env.DEV) {
-			console.info(`[palette-ai] page context: ${content.length} chars — ${document.title}`)
-		}
 		return [
 			'The assistant is embedded in the command palette of weslleyrichard.dev,',
 			'a portfolio site for Weslley Richard (backend PHP/Laravel/Symfony engineer).',
