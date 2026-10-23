@@ -9,6 +9,9 @@ export const siteConfig: SiteConfig = {
 	// Meta property used as the default description meta property
 	description:
 		'Backend Software Engineer focused on PHP, Laravel, Symfony, AWS and Docker. Based in Tbilisi, Georgia.',
+	// Alt text for the social card image (og:image:alt / twitter:image:alt)
+	socialImageAlt:
+		'Weslley Richard — backend engineer. Distributed systems in PHP with Symfony, Laravel, AWS, Kafka and Docker',
 	// HTML lang property, found in src/layouts/Base.astro L:18
 	lang: 'en-US',
 	// Meta property, found in src/components/BaseHead.astro L:42

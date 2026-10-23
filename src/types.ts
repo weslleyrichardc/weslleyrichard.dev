@@ -13,6 +13,7 @@ export type SiteConfig = {
 		github: string
 		email: string
 	}
+	socialImageAlt: string
 }
 
 export type SiteMeta = {
