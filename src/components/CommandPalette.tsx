@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { ChevronDownIcon } from '@radix-ui/react-icons'
+import { ChevronDownIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import {
 	CommandDialog,
 	CommandEmpty,
@@ -33,6 +33,16 @@ export default function CommandPalette() {
 	const [moreBelow, setMoreBelow] = React.useState(false)
 	const aiRef = React.useRef<number>(0)
 	const listRef = React.useRef<HTMLDivElement>(null)
+	const aiInputRef = React.useRef<HTMLTextAreaElement>(null)
+
+	// Auto-grow the question textarea so long questions wrap instead of
+	// scrolling out of view (capped, then it scrolls internally).
+	React.useEffect(() => {
+		const el = aiInputRef.current
+		if (!el) return
+		el.style.height = 'auto'
+		el.style.height = `${Math.min(el.scrollHeight, 160)}px`
+	}, [aiQuestion, aiMode])
 
 	// "Scroll for more" cue: visible while the AI answer list actually has
 	// content below the fold, hidden once the visitor reaches the end.
@@ -113,17 +123,30 @@ export default function CommandPalette() {
 		<CommandDialog open={open} onOpenChange={(next) => (next ? setOpen(true) : resetAi())}>
 			{aiMode ? (
 				<>
-					<CommandInput
-						placeholder='Ask anything…'
-						value={aiQuestion}
-						onValueChange={setAiQuestion}
-						onKeyDown={(e) => {
-							if (e.key === 'Enter' && !(e.nativeEvent as KeyboardEvent).isComposing) {
-								e.preventDefault()
-								void ask(aiQuestion)
-							}
-						}}
-					/>
+					<div className='flex items-start border-b px-3'>
+						<MagnifyingGlassIcon className='mr-2 mt-3 h-4 w-4 shrink-0 opacity-50' />
+						<textarea
+							ref={aiInputRef}
+							aria-label='Ask the browser AI'
+							autoFocus
+							placeholder='Ask anything… (Enter to ask, Shift+Enter for a new line)'
+							rows={1}
+							value={aiQuestion}
+							onChange={(e) => setAiQuestion(e.target.value)}
+							onKeyDown={(e) => {
+								if (
+									e.key === 'Enter' &&
+									!e.shiftKey &&
+									!(e.nativeEvent as KeyboardEvent).isComposing
+								) {
+									e.preventDefault()
+									e.stopPropagation() // keep cmdk from selecting an action item
+									void ask(aiQuestion)
+								}
+							}}
+							className='max-h-40 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground'
+						/>
+					</div>
 					<CommandList ref={listRef} onScroll={updateMoreBelow}>
 						<div
 							className='mb-1 whitespace-pre-wrap px-3 py-2 text-sm text-foreground'
