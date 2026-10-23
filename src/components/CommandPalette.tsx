@@ -1,7 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import {
+	ArrowLeftIcon,
+	CheckIcon,
+	ChevronDownIcon,
+	CopyIcon,
+	MagnifyingGlassIcon,
+	ReloadIcon
+} from '@radix-ui/react-icons'
 import {
 	CommandDialog,
 	CommandEmpty,
@@ -31,9 +38,16 @@ export default function CommandPalette() {
 	const [aiHint, setAiHint] = React.useState('')
 	const [aiSupported, setAiSupported] = React.useState(false)
 	const [moreBelow, setMoreBelow] = React.useState(false)
+	const [copied, setCopied] = React.useState(false)
 	const aiRef = React.useRef<number>(0)
 	const listRef = React.useRef<HTMLDivElement>(null)
 	const aiInputRef = React.useRef<HTMLTextAreaElement>(null)
+
+	const copyAnswer = () => {
+		navigator.clipboard.writeText(formatAiAnswer(aiAnswer))
+		setCopied(true)
+		window.setTimeout(() => setCopied(false), 1500)
+	}
 
 	// Auto-grow the question textarea so long questions wrap instead of
 	// scrolling out of view (capped, then it scrolls internally).
@@ -92,6 +106,7 @@ export default function CommandPalette() {
 		setAiStatus('idle')
 		setAiError('')
 		setMoreBelow(false)
+		setCopied(false)
 		destroyAiSession()
 	}
 
@@ -123,7 +138,7 @@ export default function CommandPalette() {
 		<CommandDialog open={open} onOpenChange={(next) => (next ? setOpen(true) : resetAi())}>
 			{aiMode ? (
 				<>
-					<div className='flex items-start border-b px-3'>
+					<div className='flex items-start border-b px-3 pr-10'>
 						<MagnifyingGlassIcon className='mr-2 mt-3 h-4 w-4 shrink-0 opacity-50' />
 						<textarea
 							ref={aiInputRef}
@@ -147,6 +162,48 @@ export default function CommandPalette() {
 							className='max-h-40 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground'
 						/>
 					</div>
+					<div className='flex items-center justify-between border-b px-3 py-1.5'>
+						<span className='text-xs font-medium uppercase tracking-wide text-muted-foreground'>
+							{aiStatus === 'thinking' || aiStatus === 'streaming' ? 'Thinking…' : 'Assistant'}
+						</span>
+						<div className='flex items-center gap-0.5'>
+							{aiAnswer && (aiStatus === 'done' || aiStatus === 'streaming') && (
+								<button
+									type='button'
+									title={copied ? 'Copied!' : 'Copy answer'}
+									aria-label='Copy answer'
+									onClick={copyAnswer}
+									className='rounded-sm p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
+								>
+									{copied ? (
+										<CheckIcon className='h-4 w-4 text-green-600 dark:text-green-400' />
+									) : (
+										<CopyIcon className='h-4 w-4' />
+									)}
+								</button>
+							)}
+							{aiStatus !== 'idle' && aiStatus !== 'thinking' && aiStatus !== 'streaming' && (
+								<button
+									type='button'
+									title='Retry'
+									aria-label='Retry'
+									onClick={() => void ask(aiQuestion)}
+									className='rounded-sm p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
+								>
+									<ReloadIcon className='h-4 w-4' />
+								</button>
+							)}
+							<button
+								type='button'
+								title='Back to commands'
+								aria-label='Back to commands'
+								onClick={resetAi}
+								className='rounded-sm p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
+							>
+								<ArrowLeftIcon className='h-4 w-4' />
+							</button>
+						</div>
+					</div>
 					<CommandList ref={listRef} onScroll={updateMoreBelow}>
 						<div
 							className='mb-1 whitespace-pre-wrap px-3 py-2 text-sm text-foreground'
@@ -157,9 +214,6 @@ export default function CommandPalette() {
 									Ask anything — the browser built-in AI answers on-device (private, offline, free)
 									and can see the page you are viewing.
 								</p>
-							)}
-							{aiStatus === 'thinking' && (
-								<p className='text-sm text-muted-foreground'>Thinking…</p>
 							)}
 							{aiAnswer && (
 								<blockquote className='border-l-2 border-border pl-3'>
@@ -178,19 +232,6 @@ export default function CommandPalette() {
 									<ChevronDownIcon className='h-3 w-3 animate-bounce' />
 								</span>
 							</div>
-						)}
-						{(aiStatus === 'done' || aiStatus === 'error' || aiStatus === 'streaming') && (
-							<CommandGroup heading='ACTIONS'>
-								{aiAnswer && (
-									<CommandItem
-										onSelect={() => navigator.clipboard.writeText(formatAiAnswer(aiAnswer))}
-									>
-										Copy Answer
-									</CommandItem>
-								)}
-								<CommandItem onSelect={() => void ask(aiQuestion)}>Retry</CommandItem>
-								<CommandItem onSelect={resetAi}>Back to Commands</CommandItem>
-							</CommandGroup>
 						)}
 					</CommandList>
 				</>
