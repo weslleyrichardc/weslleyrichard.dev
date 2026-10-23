@@ -31,15 +31,11 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <link rel='icon' type='image/png' sizes='16x16' href='/favicon/favicon-16x16.png' />
 <link rel='manifest' href='/favicon/site.webmanifest' />
 
-{/* Font preloads */}
-<link rel='preload' href='/fonts/Satoshi-Variable.ttf' as='font' type='font/ttf' crossorigin />
-<link
-	rel='preload'
-	href='/fonts/Satoshi-VariableItalic.ttf'
-	as='font'
-	type='font/ttf'
-	crossorigin
-/>
+{
+	/* Font preload: only the regular variant — it is used on every page.
+	The italic face stays available via @font-face and loads on demand. */
+}
+<link rel='preload' href='/fonts/Satoshi-Variable.woff2' as='font' type='font/woff2' crossorigin />
 
 {/* Canonical URL */}
 <link rel='canonical' href={canonicalURL} />
