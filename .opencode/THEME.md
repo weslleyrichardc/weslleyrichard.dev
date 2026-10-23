@@ -112,7 +112,7 @@ Section titles should always use `text-foreground`:
 Navigation items use `text-foreground` with hover states:
 
 ```astro
-<a href='/about' class='text-foreground hover:text-foreground/75'>About</a>
+<a href='/about' class='text-foreground hover:text-foreground/75'> About </a>
 ```
 
 #### Buttons
