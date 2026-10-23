@@ -18,7 +18,7 @@ export default function CommandPalette() {
 		const down = (e: KeyboardEvent) => {
 			if (
 				e.key === 'k' &&
-				e.ctrlKey &&
+				(e.ctrlKey || e.metaKey) &&
 				!(e.target as HTMLElement).matches('input, textarea, [contenteditable]')
 			) {
 				e.preventDefault()
