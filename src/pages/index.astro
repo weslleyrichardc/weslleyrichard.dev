@@ -3,6 +3,7 @@ import Label from '../components/Label.astro'
 import Section from '../components/Section.astro'
 import Icon from '../components/Icon.astro'
 import PageLayout from '../layouts/BaseLayout.astro'
+import { siteConfig } from '@/site-config'
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -20,7 +21,7 @@ import PageLayout from '../layouts/BaseLayout.astro'
 					<Label
 						title='Connect on Linkedin'
 						as='a'
-						href='https://www.linkedin.com/in/weslleyrichardc'
+						href={siteConfig.socialLinks.linkedin}
 						target='_blank'
 					>
 						<Icon name='linkedin' slot='icon' class='h-5 w-5 text-foreground/75' />
