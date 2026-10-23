@@ -79,15 +79,21 @@ function createOptions(system?: string): { [key: string]: unknown } {
 
 /**
  * Snapshot of the page the visitor is reading, passed to the model as a
- * system prompt. Strips the open command dialog so its own UI text does
- * not leak into the context, and caps the extract for the input quota.
+ * system prompt. Reads the main content (falling back to the body) and
+ * strips the open command dialog (a Radix portal, `[role="dialog"]` — the
+ * palette does not use cmdk's own Dialog wrapper) so its UI text does not
+ * leak into the context; caps the extract for the input quota.
  */
-export function getCurrentPageContext(limit = 8000): string | undefined {
+export function getCurrentPageContext(limit = 6000): string | undefined {
 	try {
-		const body = document.body.cloneNode(true) as HTMLElement
-		body.querySelectorAll('[cmdk-dialog]').forEach((node) => node.remove())
-		const content = (body.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, limit)
+		const source = document.querySelector('main') ?? document.body
+		const clone = source.cloneNode(true) as HTMLElement
+		clone.querySelectorAll('[role="dialog"], [cmdk-dialog]').forEach((node) => node.remove())
+		const content = (clone.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, limit)
 		if (!content) return undefined
+		if (import.meta.env.DEV) {
+			console.info(`[palette-ai] page context: ${content.length} chars — ${document.title}`)
+		}
 		return [
 			'The assistant is embedded in the command palette of weslleyrichard.dev,',
 			'a portfolio site for Weslley Richard (backend PHP/Laravel/Symfony engineer).',
@@ -95,13 +101,17 @@ export function getCurrentPageContext(limit = 8000): string | undefined {
 			`CURRENT PAGE: ${window.location.href} — ${document.title}`,
 			`PAGE CONTENT: """\n${content}\n"""`
 		].join('\n')
-	} catch {
+	} catch (error) {
+		console.warn('[palette-ai] could not capture page context', error)
 		return undefined
 	}
 }
 
 /**
  * Ask the browser's on-device AI and stream answer chunks.
+ * The system prompt (page context) survives every fallback tier, and when
+ * no create() options are accepted at all it is inlined into the first
+ * prompt instead — the context always reaches the model.
  * Throws when no session can be created (unsupported, no disk space, etc).
  */
 export async function* askAi(input: string, system?: string): AsyncGenerator<string, void, void> {
@@ -110,16 +120,25 @@ export async function* askAi(input: string, system?: string): AsyncGenerator<str
 
 	if (session) session.destroy?.()
 	session = undefined
+	let inlineSystem = false
 	try {
 		session = await api.create(createOptions(system))
 	} catch {
-		// Rejects when the device language is unsupported by the model —
-		// retry without language hints.
-		session = await api.create()
+		// Older Chrome builds reject the expectedInputs/Outputs keys as unknown —
+		// retry keeping ONLY the system prompt so the page context survives.
+		try {
+			session = await api.create(
+				system ? { initialPrompts: [{ role: 'system', content: system }] } : undefined
+			)
+		} catch {
+			session = await api.create()
+			if (system) inlineSystem = true // last resort: context goes in the first prompt
+		}
 	}
 	if (!session) throw new Error('The browser AI session could not be created')
 
-	const stream = session.promptStreaming(input)
+	const first = inlineSystem ? `${system}\n\nUSER QUESTION: ${input}` : input
+	const stream = session.promptStreaming(first)
 	for await (const chunk of stream) {
 		if (chunk) yield chunk
 	}

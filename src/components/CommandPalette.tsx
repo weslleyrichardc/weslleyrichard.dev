@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { ChevronDownIcon } from '@radix-ui/react-icons'
 import {
 	CommandDialog,
 	CommandEmpty,
@@ -23,7 +24,21 @@ export default function CommandPalette() {
 	const [aiError, setAiError] = React.useState('')
 	const [aiHint, setAiHint] = React.useState('')
 	const [aiSupported, setAiSupported] = React.useState(false)
+	const [moreBelow, setMoreBelow] = React.useState(false)
 	const aiRef = React.useRef<number>(0)
+	const listRef = React.useRef<HTMLDivElement>(null)
+
+	// "Scroll for more" cue: visible while the AI answer list actually has
+	// content below the fold, hidden once the visitor reaches the end.
+	const updateMoreBelow = React.useCallback(() => {
+		const el = listRef.current
+		setMoreBelow(Boolean(el) && el!.scrollHeight - el!.scrollTop - el!.clientHeight > 8)
+	}, [])
+
+	React.useEffect(() => {
+		const id = requestAnimationFrame(updateMoreBelow)
+		return () => cancelAnimationFrame(id)
+	}, [aiAnswer, aiStatus, aiMode, updateMoreBelow])
 
 	React.useEffect(() => {
 		const down = (e: KeyboardEvent) => {
@@ -60,6 +75,7 @@ export default function CommandPalette() {
 		setAiAnswer('')
 		setAiStatus('idle')
 		setAiError('')
+		setMoreBelow(false)
 		destroyAiSession()
 	}
 
@@ -102,7 +118,7 @@ export default function CommandPalette() {
 							}
 						}}
 					/>
-					<CommandList>
+					<CommandList ref={listRef} onScroll={updateMoreBelow}>
 						<div
 							className='mb-1 whitespace-pre-wrap px-3 py-2 text-sm text-foreground'
 							aria-live='polite'
@@ -121,6 +137,17 @@ export default function CommandPalette() {
 							)}
 							{aiStatus === 'error' && <p className='text-sm text-foreground'>{aiError}</p>}
 						</div>
+						{moreBelow && (
+							<div
+								aria-hidden
+								className='pointer-events-none sticky bottom-0 z-10 bg-gradient-to-t from-popover to-transparent pb-1 pt-6 text-center text-xs text-muted-foreground'
+							>
+								<span className='inline-flex items-center gap-1'>
+									Scroll for more
+									<ChevronDownIcon className='h-3 w-3 animate-bounce' />
+								</span>
+							</div>
+						)}
 						{(aiStatus === 'done' || aiStatus === 'error' || aiStatus === 'streaming') && (
 							<CommandGroup heading='ACTIONS'>
 								{aiAnswer && (
