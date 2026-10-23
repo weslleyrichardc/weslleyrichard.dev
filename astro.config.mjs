@@ -15,7 +15,9 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://weslleyrichard.dev',
+    // Vercel's primary domain is www (apex 308-redirects to it); keep the
+    // canonical URLs emitted by the site on the served variant.
+    site: 'https://www.weslleyrichard.dev',
     prefetch: true,
     compressHTML: true,
     integrations: [expressiveCode(expressiveCodeOptions), tailwind({
