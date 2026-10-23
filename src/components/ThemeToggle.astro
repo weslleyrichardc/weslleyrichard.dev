@@ -38,9 +38,13 @@
 </button>
 
 <script>
-	const btn = document.getElementById('toggleDarkMode')
+	// Use event delegation on `document` so the handler keeps working across
+	// client-side view transitions (Astro re-creates the button on each swap,
+	// and module scripts only run once per full page load).
+	document.addEventListener('click', (e) => {
+		const target = e.target instanceof Element ? e.target : null
+		if (!target?.closest('#toggleDarkMode')) return
 
-	btn?.addEventListener('click', () => {
 		const root = document.documentElement
 		const dark = root.classList.toggle('dark')
 		requestAnimationFrame(() => {
