@@ -17,7 +17,7 @@ The website serves as an online resume and a way for potential employers and col
 
 ## Technologies Used
 
-- **Framework:** [Astro](https://astro.build/) - Web framework with server-side rendering
+- **Framework:** [Astro](https://astro.build/) - Web framework, statically generated (SSG)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - **Language:** TypeScript, JavaScript
 - **Deployment:** Vercel (serverless, via the `@astrojs/vercel` adapter)
@@ -108,7 +108,7 @@ For detailed theming guidelines, color usage, and best practices, refer to [.ope
 
 ## Deployment
 
-The site is configured for deployment on Vercel. Push to your repository and connect it to Vercel for automatic deployments.
+The site is configured for deployment on Vercel as a statically generated build (`output: 'static'`), served from the CDN with no serverless functions. Push to your repository and connect it to Vercel for automatic deployments.
 
 ## Credits
 
