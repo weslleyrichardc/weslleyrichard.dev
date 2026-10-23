@@ -1,4 +1,3 @@
-import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
 import expressiveCode from 'astro-expressive-code'
@@ -21,7 +20,7 @@ export default defineConfig({
     compressHTML: true,
     integrations: [expressiveCode(expressiveCodeOptions), tailwind({
         applyBaseStyles: false
-		}), sitemap(), mdx(), icon(), react()],
+		}), sitemap(), icon(), react()],
     markdown: {
         processor: unified({
             remarkPlugins: [remarkReadingTime],
@@ -42,8 +41,7 @@ export default defineConfig({
             }
         })
     },
-    prefetch: true,
-    output: 'server',
+    output: 'static',
     adapter: vercel({
         webAnalytics: { enabled: true }
     })

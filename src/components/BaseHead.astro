@@ -18,7 +18,6 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 
 <meta charset='utf-8' />
 <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-<meta content='IE=edge' http-equiv='X-UA-Compatible' />
 <title>{siteTitle}</title>
 
 {/* Icons / Favicon */}
@@ -50,8 +49,9 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <meta content={description} name='description' />
 <meta content={siteConfig.author} name='author' />
 
-{/* Theme Colour */}
-<meta content='' name='theme-color' />
+{/* Theme Colour (falls back to system scheme; per-preference values) */}
+<meta content='#fcfcfd' media='(prefers-color-scheme: light)' name='theme-color' />
+<meta content='#09090b' media='(prefers-color-scheme: dark)' name='theme-color' />
 
 {/* Open Graph / Facebook */}
 <meta content={articleDate ? 'article' : 'website'} property='og:type' />
@@ -72,17 +72,16 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 	)
 }
 
-{/* Twitter */}
-<meta content='summary_large_image' property='twitter:card' />
-<meta content={canonicalURL} property='twitter:url' />
-<meta content={title} property='twitter:title' />
-<meta content={description} property='twitter:description' />
-<meta content={socialImageURL} property='twitter:image' />
+{
+	/* Twitter (uses name= per the Twitter/X scraper spec, summarised https://developer.x.com/en/docs/twitter-for-websites/cards/overview/markup) */
+}
+<meta content='summary_large_image' name='twitter:card' />
+<meta content={canonicalURL} name='twitter:url' />
+<meta content={title} name='twitter:title' />
+<meta content={description} name='twitter:description' />
+<meta content={socialImageURL} name='twitter:image' />
 
 {/* Sitemap */}
 <link href='/sitemap-index.xml' rel='sitemap' />
-
-{/* RSS auto-discovery */}
-<link href='/rss.xml' rel='alternate' title={siteConfig.title} type='application/rss+xml' />
 
 <meta content={Astro.generator} name='generator' />

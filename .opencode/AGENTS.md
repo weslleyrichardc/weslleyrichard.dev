@@ -23,3 +23,17 @@
 - **Theme Testing**: Always test changes in both light and dark modes using the theme toggle
 - **Styling**: Tailwind CSS with clsx/cn utility for conditional classes
 - **Theming**: Use semantic color classes (text-foreground, text-muted-foreground). Never use hardcoded colors like text-white. See THEME.md in this directory for comprehensive theming guidelines.
+
+## Git Workflow
+
+- **Always create a branch for a change** — never commit directly to `main`
+- **Commit using Conventional Commits** (e.g. `fix:`, `feat:`, `chore:`, `docs:`, `refactor:`, `perf:`)
+- **Open a PR from the branch to `main`** (use `gh pr create`) when the change is ready for review
+
+## Testing
+
+- **Agents must run tests on every change** before pushing or opening a PR. This project has no dedicated test framework, so the verification gate is:
+  1. `pnpm build` — runs `astro check` (type checking) plus the full build
+  2. `pnpm lint` — Prettier formatting and ESLint fixes
+  3. Pre-commit hooks (husky) run prettier/eslint/astro check automatically on every commit — do not use `--no-verify` to skip them
+- A change is only ready for review once all of the above pass.

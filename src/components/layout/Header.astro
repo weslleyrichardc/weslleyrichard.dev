@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from '../../components/ThemeToggle.astro'
+import { menuLinks } from '@/site-config'
 ---
 
 <header class='mb-12 flex w-full flex-wrap pb-3 text-sm sm:flex-nowrap sm:justify-start'>
@@ -11,22 +12,49 @@ import ThemeToggle from '../../components/ThemeToggle.astro'
 
 		<button
 			class='cursor-pointer rounded px-2 py-1 text-sm hover:bg-accent'
-			title='Press Ctrl+K to open command palette'
+			title='Press Ctrl/Cmd+K to open command palette'
 			onclick="document.dispatchEvent(new Event('open-command-palette'))"
 		>
 			<kbd
 				class='pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded-sm bg-muted px-1 font-sans text-xs font-medium text-muted-foreground'
+				data-shortcut-placeholder
 			>
 				Ctrl+K
 			</kbd>
 		</button>
 
 		<div class='flex flex-row items-center justify-center gap-x-5 sm:gap-x-7'>
-			<a href='/about' class='flex-none text-[1.05rem] font-medium hover:text-foreground/75'
-				>About Me
-			</a>
+			{
+				menuLinks
+					.filter((link) => link.path !== '/')
+					.map((link) => (
+						<a
+							href={link.path}
+							class='flex-none text-[1.05rem] font-medium hover:text-foreground/75'
+						>
+							{link.title}
+						</a>
+					))
+			}
 
 			<ThemeToggle />
 		</div>
 	</nav>
 </header>
+
+<script is:inline>
+	// Show a platform-appropriate shortcut: Ctrl+K elsewhere, Cmd+K on macOS.
+	// Registered once; re-applied after each view transition via astro:page-load.
+	if (!window.__shortcutPlaceholderInit) {
+		window.__shortcutPlaceholderInit = true
+		const applyShortcut = () => {
+			if (!/mac|iphone|ipad/i.test(navigator.userAgent)) return
+			document.querySelectorAll('[data-shortcut-placeholder]').forEach((el) => {
+				el.textContent = '\u2318K'
+				const owner = el.closest('button[title]')
+				if (owner) owner.title = 'Press Cmd+K to open command palette'
+			})
+		}
+		document.addEventListener('astro:page-load', applyShortcut)
+	}
+</script>
