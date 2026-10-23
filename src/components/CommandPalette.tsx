@@ -51,13 +51,15 @@ export default function CommandPalette() {
 		window.setTimeout(() => setCopied(false), 1500)
 	}
 
-	// Auto-grow the question textarea up to 2 lines so long questions stay
-	// visible without breaking the palette layout.
+	// Auto-grow the question textarea up to exactly 2 lines; content past
+	// that is still accepted but the view stays clamped and the caret
+	// follows the typing (no scrollbar, no clipped sliver of line 3).
 	React.useEffect(() => {
 		const el = aiInputRef.current
 		if (!el) return
 		el.style.height = 'auto'
 		el.style.height = `${Math.min(el.scrollHeight, 64)}px`
+		el.scrollTop = el.scrollHeight
 	}, [aiQuestion, aiMode])
 
 	// "Scroll for more" cue: visible while the AI answer list actually has
@@ -161,7 +163,7 @@ export default function CommandPalette() {
 									void ask(aiQuestion)
 								}
 							}}
-							className='max-h-16 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground'
+							className='scrollbar-hide max-h-16 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground'
 						/>
 					</div>
 					<div className='flex items-center justify-between border-b px-3 py-1.5'>
