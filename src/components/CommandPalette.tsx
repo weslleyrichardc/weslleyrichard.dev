@@ -10,7 +10,7 @@ import {
 	CommandList,
 	CommandSeparator
 } from '@/components/ui/command'
-import { askAi, detectAi, destroyAiSession } from '@/lib/browser-ai'
+import { askAi, detectAi, destroyAiSession, getCurrentPageContext } from '@/lib/browser-ai'
 
 type AiStatus = 'idle' | 'thinking' | 'streaming' | 'done' | 'error'
 
@@ -73,7 +73,8 @@ export default function CommandPalette() {
 		setAiStatus('thinking')
 
 		try {
-			for await (const chunk of askAi(question)) {
+			const context = getCurrentPageContext() // capture before the question UI changes the DOM
+			for await (const chunk of askAi(question, context)) {
 				if (runId !== aiRef.current) return // superseded or closed
 				setAiStatus('streaming')
 				setAiAnswer((prev) => prev + chunk)
@@ -102,20 +103,21 @@ export default function CommandPalette() {
 						}}
 					/>
 					<CommandList>
-						<div className='px-3 py-2' aria-live='polite'>
+						<div
+							className='mb-1 whitespace-pre-wrap px-3 py-2 text-sm text-foreground'
+							aria-live='polite'
+						>
 							{aiStatus === 'idle' && (
 								<p className='text-sm text-muted-foreground'>
-									Ask a question and the browser built-in AI answers on-device — private, offline,
-									free.
+									Ask anything — the browser built-in AI answers on-device (private, offline, free)
+									and can see the page you are viewing.
 								</p>
 							)}
 							{aiStatus === 'thinking' && (
 								<p className='text-sm text-muted-foreground'>Thinking…</p>
 							)}
 							{aiAnswer && (
-								<div className='max-h-72 overflow-y-auto whitespace-pre-wrap text-sm text-foreground'>
-									{aiAnswer}
-								</div>
+								<blockquote className='border-l-2 border-border pl-3'>{aiAnswer}</blockquote>
 							)}
 							{aiStatus === 'error' && <p className='text-sm text-foreground'>{aiError}</p>}
 						</div>

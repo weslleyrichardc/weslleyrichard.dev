@@ -63,15 +63,40 @@ const SUPPORTED_OUTPUT_LANGUAGES = new Set(['de', 'en', 'es', 'fr', 'ja'])
  * which Chrome requires for output quality/attestation. Falls back silently
  * when the browser rejects the hints.
  */
-function createOptions(): { [key: string]: unknown } {
+function createOptions(system?: string): { [key: string]: unknown } {
 	const primary = (navigator.language?.split('-')[0] || 'en').toLowerCase()
 	const outputs = SUPPORTED_OUTPUT_LANGUAGES.has(primary) ? [primary, 'en'] : ['en']
-	return {
+	const options: { [key: string]: unknown } = {
 		expectedInputs: [{ type: 'language', language: 'en' }],
 		expectedOutputs: [...new Set(outputs)].map((language) => ({
 			type: 'language',
 			language
 		}))
+	}
+	if (system) options.initialPrompts = [{ role: 'system', content: system }]
+	return options
+}
+
+/**
+ * Snapshot of the page the visitor is reading, passed to the model as a
+ * system prompt. Strips the open command dialog so its own UI text does
+ * not leak into the context, and caps the extract for the input quota.
+ */
+export function getCurrentPageContext(limit = 8000): string | undefined {
+	try {
+		const body = document.body.cloneNode(true) as HTMLElement
+		body.querySelectorAll('[cmdk-dialog]').forEach((node) => node.remove())
+		const content = (body.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, limit)
+		if (!content) return undefined
+		return [
+			'The assistant is embedded in the command palette of weslleyrichard.dev,',
+			'a portfolio site for Weslley Richard (backend PHP/Laravel/Symfony engineer).',
+			'Use the CURRENT PAGE context when relevant; otherwise answer generally.',
+			`CURRENT PAGE: ${window.location.href} — ${document.title}`,
+			`PAGE CONTENT: """\n${content}\n"""`
+		].join('\n')
+	} catch {
+		return undefined
 	}
 }
 
@@ -79,14 +104,14 @@ function createOptions(): { [key: string]: unknown } {
  * Ask the browser's on-device AI and stream answer chunks.
  * Throws when no session can be created (unsupported, no disk space, etc).
  */
-export async function* askAi(input: string): AsyncGenerator<string, void, void> {
+export async function* askAi(input: string, system?: string): AsyncGenerator<string, void, void> {
 	const api = getModelApi()
 	if (!api?.create) throw new Error('Your browser has no built-in AI (try Chrome or Edge)')
 
 	if (session) session.destroy?.()
 	session = undefined
 	try {
-		session = await api.create(createOptions())
+		session = await api.create(createOptions(system))
 	} catch {
 		// Rejects when the device language is unsupported by the model —
 		// retry without language hints.
