@@ -56,6 +56,25 @@ export function destroyAiSession(): void {
 	session = undefined
 }
 
+const SUPPORTED_OUTPUT_LANGUAGES = new Set(['de', 'en', 'es', 'fr', 'ja'])
+
+/**
+ * Build session create options declaring the expected output language(s),
+ * which Chrome requires for output quality/attestation. Falls back silently
+ * when the browser rejects the hints.
+ */
+function createOptions(): { [key: string]: unknown } {
+	const primary = (navigator.language?.split('-')[0] || 'en').toLowerCase()
+	const outputs = SUPPORTED_OUTPUT_LANGUAGES.has(primary) ? [primary, 'en'] : ['en']
+	return {
+		expectedInputs: [{ type: 'language', language: 'en' }],
+		expectedOutputs: [...new Set(outputs)].map((language) => ({
+			type: 'language',
+			language
+		}))
+	}
+}
+
 /**
  * Ask the browser's on-device AI and stream answer chunks.
  * Throws when no session can be created (unsupported, no disk space, etc).
@@ -65,7 +84,14 @@ export async function* askAi(input: string): AsyncGenerator<string, void, void> 
 	if (!api?.create) throw new Error('Your browser has no built-in AI (try Chrome or Edge)')
 
 	if (session) session.destroy?.()
-	session = await api.create({ stream: true })
+	session = undefined
+	try {
+		session = await api.create(createOptions())
+	} catch {
+		// Rejects when the device language is unsupported by the model —
+		// retry without language hints.
+		session = await api.create()
+	}
 	if (!session) throw new Error('The browser AI session could not be created')
 
 	const stream = session.promptStreaming(input)
