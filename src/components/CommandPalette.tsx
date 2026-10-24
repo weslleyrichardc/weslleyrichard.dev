@@ -148,16 +148,12 @@ export default function CommandPalette() {
 							ref={aiInputRef}
 							aria-label='Ask the browser AI'
 							autoFocus
-							placeholder='Ask anything… (Enter to ask, Shift+Enter for a new line)'
+							placeholder='Ask anything… (Enter to ask)'
 							rows={1}
 							value={aiQuestion}
 							onChange={(e) => setAiQuestion(e.target.value)}
 							onKeyDown={(e) => {
-								if (
-									e.key === 'Enter' &&
-									!e.shiftKey &&
-									!(e.nativeEvent as KeyboardEvent).isComposing
-								) {
+								if (e.key === 'Enter' && !(e.nativeEvent as KeyboardEvent).isComposing) {
 									e.preventDefault()
 									e.stopPropagation() // keep cmdk from selecting an action item
 									void ask(aiQuestion)
