@@ -14,7 +14,7 @@ const { title, company, companyUrl, period, description, employmentType } = Astr
 <li class='flex flex-col gap-y-2'>
 	<div>
 		<strong class='text-foreground'>{title}</strong> at{' '}
-		<a href={companyUrl} target='_blank' class='hover:underline'>
+		<a href={companyUrl} target='_blank' rel='noopener noreferrer' class='hover:underline'>
 			{company}
 		</a>{' '}
 		({period}){employmentType && <span class='text-muted-foreground'> · {employmentType}</span>}
