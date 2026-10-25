@@ -8,6 +8,7 @@ This is a modern, responsive personal portfolio website built with Astro and Tai
 
 - **Home Page:** Introduction, location, and contact links
 - **About Page:** Detailed professional experience and technical stack
+- **Blog:** Markdown posts rendered with Astro content collections, code highlighting, and reading time
 - **Command Palette:** Quick navigation and actions with Ctrl+K shortcut, including Go To pages, Copy Link, View Source, and theme toggle
 - **Responsive Design:** Optimized for all devices
 - **Dark/Light Theme:** Full theme support with automatic system preference detection
@@ -94,6 +95,10 @@ Before committing changes, run the following commands to ensure code quality and
 - **Styling:** Modify Tailwind classes or update `tailwind.config.js`
 - **Site Config:** Update `src/site.config.ts` for site-wide settings
 - **Theming:** See [.opencode/THEME.md](./.opencode/THEME.md) for comprehensive theming documentation
+
+### Writing a post
+
+Add a Markdown file to `src/content/blog/` with `title`, `description`, `publishDate`, `tags`, and `draft` frontmatter. Posts with `draft: true` are available in development and excluded from production builds.
 
 ### Theming System
 

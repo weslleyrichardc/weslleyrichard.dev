@@ -1,0 +1,84 @@
+---
+import type { GetStaticPaths } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+import { render } from 'astro:content'
+import getReadingTime from 'reading-time'
+
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { getBlogPosts } from '@/lib/blog'
+import { getFormattedDate } from '@/utils'
+
+type Props = {
+	post: CollectionEntry<'blog'>
+}
+
+export const getStaticPaths = (async () => {
+	const posts = await getBlogPosts()
+
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post }
+	}))
+}) satisfies GetStaticPaths
+
+const { post } = Astro.props as Props
+const { Content, remarkPluginFrontmatter } = await render(post)
+const publishedDate = post.data.publishDate.toISOString()
+const minutesRead =
+	(remarkPluginFrontmatter.minutesRead as string | undefined) ??
+	getReadingTime(post.body ?? '').text
+---
+
+<PageLayout
+	meta={{
+		title: post.data.title,
+		description: post.data.description,
+		articleDate: publishedDate,
+		ogImage: post.data.ogImage
+	}}
+>
+	<article class='flex w-full flex-col gap-y-10'>
+		<header class='flex flex-col gap-y-4'>
+			<a class='text-sm text-muted-foreground hover:text-foreground' href='/blog'>
+				← Back to all posts
+			</a>
+			<h1 class='text-balance text-3xl font-bold leading-tight sm:text-4xl'>
+				{post.data.title}
+			</h1>
+			<p class='max-w-prose text-pretty text-lg text-muted-foreground'>
+				{post.data.description}
+			</p>
+			<div class='flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground'>
+				<time datetime={publishedDate}>
+					{getFormattedDate(post.data.publishDate, { timeZone: 'UTC' })}
+				</time>
+				<span aria-hidden='true'>·</span>
+				<span>{minutesRead}</span>
+				{
+					post.data.tags.length > 0 && (
+						<>
+							<span aria-hidden='true'>·</span>
+							<span class='flex flex-wrap gap-x-2'>
+								{post.data.tags.map((tag) => (
+									<span>#{tag}</span>
+								))}
+							</span>
+						</>
+					)
+				}
+			</div>
+		</header>
+
+		<div
+			class='prose prose-neutral max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-h2:mb-4 prose-h2:mt-12 prose-h3:mb-3 prose-h3:mt-8 prose-p:leading-relaxed prose-a:text-foreground prose-a:underline prose-a:decoration-border prose-a:underline-offset-4 prose-strong:text-foreground prose-code:before:content-none prose-code:after:content-none prose-li:marker:text-muted-foreground prose-img:rounded-lg prose-hr:border-border'
+		>
+			<Content />
+		</div>
+
+		<footer class='border-t border-border pt-5'>
+			<a class='text-sm text-muted-foreground hover:text-foreground' href='/blog'>
+				← Back to all posts
+			</a>
+		</footer>
+	</article>
+</PageLayout>

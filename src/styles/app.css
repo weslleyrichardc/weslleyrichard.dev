@@ -81,6 +81,12 @@
 	}
 }
 
+/* Inline code only; fenced blocks are styled by Expressive Code. */
+.prose :where(code):not(:where(pre *)) {
+	@apply rounded bg-muted px-1 py-0.5 font-normal;
+	font-size: 0.875em;
+}
+
 /* The resume reads as a single column, both on screen and on paper. */
 .resume-page section {
 	display: block;
