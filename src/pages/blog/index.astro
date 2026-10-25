@@ -1,0 +1,48 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { getBlogPosts } from '@/lib/blog'
+import { getFormattedDate } from '@/utils'
+
+const posts = await getBlogPosts()
+---
+
+<PageLayout
+	meta={{
+		title: 'Blog',
+		description: 'Notes on building software, the web, and the occasional side project.'
+	}}
+>
+	<div class='flex w-full flex-col gap-y-10'>
+		<header class='flex flex-col gap-y-3'>
+			<h1 class='text-3xl font-bold'>Blog</h1>
+			<p class='max-w-prose text-muted-foreground'>
+				Notes on building software, the web, and the occasional side project.
+			</p>
+		</header>
+
+		{
+			posts.length === 0 ? (
+				<p class='text-muted-foreground'>Nothing published yet.</p>
+			) : (
+				<ul class='flex flex-col divide-y divide-border border-y border-border'>
+					{posts.map((post) => (
+						<li>
+							<a class='group flex flex-col gap-y-2 py-6' href={`/blog/${post.id}`}>
+								<time
+									class='text-sm text-muted-foreground'
+									datetime={post.data.publishDate.toISOString()}
+								>
+									{getFormattedDate(post.data.publishDate, { timeZone: 'UTC' })}
+								</time>
+								<h2 class='text-xl font-semibold group-hover:text-foreground/75'>
+									{post.data.title}
+								</h2>
+								<p class='max-w-prose text-muted-foreground'>{post.data.description}</p>
+							</a>
+						</li>
+					))}
+				</ul>
+			)
+		}
+	</div>
+</PageLayout>
