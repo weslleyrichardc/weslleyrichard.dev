@@ -4,7 +4,7 @@
 	"version": "1.7.0",
 	"packageManager": "pnpm@11.28.7",
 	"engines": {
-		"node": ">=22.22.0"
+		"node": "24.x"
 	},
 	"scripts": {
 		"dev": "astro check --watch & astro dev",
