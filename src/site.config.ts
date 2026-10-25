@@ -42,6 +42,10 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 		path: '/about'
 	},
 	{
+		title: 'Blog',
+		path: '/blog'
+	},
+	{
 		title: 'Resume',
 		path: '/resume'
 	}
@@ -52,12 +56,15 @@ export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
 	// One dark, one light theme => https://expressive-code.com/guides/themes/#available-themes
 	themes: ['dracula', 'github-light'],
 	themeCssSelector(theme, { styleVariants }) {
-		// If one dark and one light theme are available
-		// generate theme CSS selectors compatible with cactus-theme dark mode switch
+		// One dark and one light theme are available. Tie the code theme to the
+		// same `.dark` class the rest of the site uses, so the header toggle and
+		// the command palette both switch code blocks without extra JS.
 		if (styleVariants.length >= 2) {
 			const baseTheme = styleVariants[0]?.theme
 			const altTheme = styleVariants.find((v) => v.theme.type !== baseTheme?.type)?.theme
-			if (theme === baseTheme || theme === altTheme) return `[data-theme='${theme.type}']`
+			if (theme === baseTheme || theme === altTheme) {
+				return theme.type === 'dark' ? '.dark' : ':root:not(.dark)'
+			}
 		}
 		// return default selector
 		return `[data-theme="${theme.name}"]`

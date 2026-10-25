@@ -255,6 +255,7 @@ export default function CommandPalette() {
 						<CommandGroup heading='Go To'>
 							<CommandItem onSelect={() => goTo('/')}>Home</CommandItem>
 							<CommandItem onSelect={() => goTo('/about')}>About</CommandItem>
+							<CommandItem onSelect={() => goTo('/blog')}>Blog</CommandItem>
 							<CommandItem onSelect={() => goTo('/resume')}>Resume</CommandItem>
 						</CommandGroup>
 						<CommandSeparator />

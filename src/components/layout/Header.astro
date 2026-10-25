@@ -5,7 +5,7 @@ import { menuLinks } from '@/site-config'
 
 <header class='mb-12 flex w-full flex-wrap pb-3 text-sm sm:flex-nowrap sm:justify-start'>
 	<nav
-		class='relative mx-auto flex w-full items-center justify-between sm:flex sm:items-center'
+		class='relative mx-auto flex w-full flex-wrap items-center justify-between gap-y-3 sm:flex-nowrap sm:items-center'
 		aria-label='global'
 	>
 		<a class='flex-none text-xl font-semibold' href='/'> Weslley Richard </a>
@@ -24,14 +24,16 @@ import { menuLinks } from '@/site-config'
 		>
 			<span class='sr-only'>Open command palette</span>
 			<kbd
-				class='pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded-sm bg-muted px-1 font-sans text-xs font-medium text-muted-foreground'
+				class='pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded-sm bg-muted px-1 font-sans text-xs font-medium text-foreground/75'
 				data-shortcut-placeholder
 			>
 				Ctrl+K
 			</kbd>
 		</button>
 
-		<div class='flex flex-row items-center justify-center gap-x-5 sm:gap-x-7'>
+		<div
+			class='flex w-full flex-row items-center justify-between gap-x-5 sm:w-auto sm:justify-center sm:gap-x-7'
+		>
 			{
 				menuLinks
 					.filter((link) => link.path !== '/')
