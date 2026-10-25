@@ -1,8 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import {
 	ArrowLeftIcon,
 	CheckIcon,
@@ -21,8 +19,12 @@ import {
 	CommandList,
 	CommandSeparator
 } from '@/components/ui/command'
-import { formatAiAnswer } from '@/lib/browser-ai'
 import { useBrowserAi } from '@/lib/use-browser-ai'
+import { navigate } from 'astro:transitions/client'
+
+// Code-split the markdown renderer: it is only needed once an AI answer
+// exists, so it stays out of the palette's initial island bundle.
+const AiAnswer = React.lazy(() => import('./AiAnswer'))
 
 export default function CommandPalette() {
 	const [open, setOpen] = React.useState(false)
@@ -50,6 +52,20 @@ export default function CommandPalette() {
 		setAiMode(false)
 		resetAi()
 	}, [resetAi])
+
+	// Warm the markdown chunk as soon as the AI view opens, so the first
+	// streamed answer renders immediately instead of suspending.
+	React.useEffect(() => {
+		if (aiMode) void import('./AiAnswer')
+	}, [aiMode])
+
+	// Use the ClientRouter for internal navigation (prefetched pages, shared
+	// view transitions) instead of forcing a full document reload. The palette
+	// closes first so its modal never rides a transition snapshot.
+	const goTo = (path: string) => {
+		closePalette()
+		requestAnimationFrame(() => navigate(path))
+	}
 
 	// Ctrl/Cmd+K toggles the palette from anywhere — including while the
 	// palette or its AI question box has focus (the old input/textarea guard
@@ -202,14 +218,13 @@ export default function CommandPalette() {
 								</p>
 							)}
 							{ai.answer && (
-								<div
-									className='border-l-2 border-border pl-3 [&_a]:underline [&_blockquote]:border-l-2 [&_blockquote]:border-border [&_blockquote]:pl-3 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[0.875em] [&_h1]:my-2 [&_h1]:text-base [&_h1]:font-semibold [&_h2]:my-2 [&_h2]:text-sm [&_h2]:font-semibold [&_h3]:mt-2 [&_h3]:text-sm [&_h4]:mt-2 [&_h4]:text-sm [&_li]:my-0.5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-2 [&_p]:first:mt-0 [&_p]:last:mb-0 [&_pre]:my-2 [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:bg-muted [&_pre]:p-3 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_strong]:font-semibold [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5'
-									aria-live='polite'
+								<React.Suspense
+									fallback={
+										<p className='whitespace-pre-wrap border-l-2 border-border pl-3'>{ai.answer}</p>
+									}
 								>
-									<ReactMarkdown remarkPlugins={[remarkGfm]}>
-										{formatAiAnswer(ai.answer)}
-									</ReactMarkdown>
-								</div>
+									<AiAnswer answer={ai.answer} />
+								</React.Suspense>
 							)}
 							{ai.status === 'error' && <p className='text-sm text-foreground'>{ai.error}</p>}
 						</div>
@@ -238,9 +253,9 @@ export default function CommandPalette() {
 					<CommandList>
 						<CommandEmpty>No results found.</CommandEmpty>
 						<CommandGroup heading='Go To'>
-							<CommandItem onSelect={() => (window.location.href = '/')}>Home</CommandItem>
-							<CommandItem onSelect={() => (window.location.href = '/about')}>About</CommandItem>
-							<CommandItem onSelect={() => (window.location.href = '/resume')}>Resume</CommandItem>
+							<CommandItem onSelect={() => goTo('/')}>Home</CommandItem>
+							<CommandItem onSelect={() => goTo('/about')}>About</CommandItem>
+							<CommandItem onSelect={() => goTo('/resume')}>Resume</CommandItem>
 						</CommandGroup>
 						<CommandSeparator />
 						{ai.supported && (

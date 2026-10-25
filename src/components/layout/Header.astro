@@ -11,8 +11,12 @@ import { menuLinks } from '@/site-config'
 		<a class='flex-none text-xl font-semibold' href='/'> Weslley Richard </a>
 
 		<button
+			type='button'
 			class='cursor-pointer rounded px-2 py-1 text-sm hover:bg-accent'
 			title='Press Ctrl/Cmd+K to open command palette'
+			aria-label='Open command palette'
+			aria-haspopup='dialog'
+			aria-keyshortcuts='Control+K Meta+K'
 			onclick="document.dispatchEvent(new Event('open-command-palette'))"
 		>
 			<kbd
@@ -52,7 +56,10 @@ import { menuLinks } from '@/site-config'
 			document.querySelectorAll('[data-shortcut-placeholder]').forEach((el) => {
 				el.textContent = '\u2318K'
 				const owner = el.closest('button[title]')
-				if (owner) owner.title = 'Press Cmd+K to open command palette'
+				if (owner) {
+					owner.title = 'Press Cmd+K to open command palette'
+					owner.setAttribute('aria-keyshortcuts', 'Meta+K')
+				}
 			})
 		}
 		document.addEventListener('astro:page-load', applyShortcut)

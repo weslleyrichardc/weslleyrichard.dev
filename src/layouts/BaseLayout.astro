@@ -28,6 +28,11 @@ const {
 
 	<body class='flex justify-center bg-background'>
 		<ThemeProvider />
+		{
+			/* client:load is deliberate: the palette advertises Ctrl/Cmd+K and must
+		    answer the very first shortcut. It renders a closed dialog, so its
+		    initial DOM cost is negligible. */
+		}
 		<CommandPalette client:load />
 		<main
 			class='flex min-h-screen w-screen max-w-[60rem] flex-col items-center px-6 pb-10 pt-7 font-satoshi text-[0.92rem] leading-relaxed sm:px-10 lg:px-10'
