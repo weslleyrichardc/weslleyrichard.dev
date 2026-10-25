@@ -22,11 +22,9 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths
 
 const { post } = Astro.props as Props
-const { Content, remarkPluginFrontmatter } = await render(post)
+const { Content } = await render(post)
 const publishedDate = post.data.publishDate.toISOString()
-const minutesRead =
-	(remarkPluginFrontmatter.minutesRead as string | undefined) ??
-	getReadingTime(post.body ?? '').text
+const minutesRead = getReadingTime(post.body ?? '').text
 ---
 
 <PageLayout

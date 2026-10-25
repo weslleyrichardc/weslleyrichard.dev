@@ -26,11 +26,16 @@ import { navigate } from 'astro:transitions/client'
 // exists, so it stays out of the palette's initial island bundle.
 const AiAnswer = React.lazy(() => import('./AiAnswer'))
 
-export default function CommandPalette() {
+export default function CommandPalette({
+	menuLinks
+}: {
+	menuLinks: Array<{ title: string; path: string }>
+}) {
 	const [open, setOpen] = React.useState(false)
 	const [aiMode, setAiMode] = React.useState(false)
 	const [search, setSearch] = React.useState('')
 	const [moreBelow, setMoreBelow] = React.useState(false)
+	const [copyStatus, setCopyStatus] = React.useState<'copied' | 'failed' | null>(null)
 	const ai = useBrowserAi()
 	const { reset: resetAi } = ai
 	const listRef = React.useRef<HTMLDivElement>(null)
@@ -40,6 +45,7 @@ export default function CommandPalette() {
 	const resetPalette = React.useCallback(() => {
 		setAiMode(false)
 		setSearch('')
+		setCopyStatus(null)
 		resetAi()
 	}, [resetAi])
 
@@ -66,6 +72,21 @@ export default function CommandPalette() {
 		closePalette()
 		requestAnimationFrame(() => navigate(path))
 	}
+
+	// Clipboard access is missing on plain HTTP and can be refused even on
+	// HTTPS, so say what happened instead of closing on a silent failure.
+	const copyLink = async () => {
+		try {
+			await navigator.clipboard.writeText(window.location.href)
+			setCopyStatus('copied')
+		} catch {
+			setCopyStatus('failed')
+		}
+		window.setTimeout(() => setCopyStatus(null), 2000)
+	}
+
+	// The theme provider owns the theme; the palette only asks for a toggle.
+	const toggleTheme = () => document.dispatchEvent(new CustomEvent('toggle-theme'))
 
 	// Ctrl/Cmd+K toggles the palette from anywhere — including while the
 	// palette or its AI question box has focus (the old input/textarea guard
@@ -253,10 +274,11 @@ export default function CommandPalette() {
 					<CommandList>
 						<CommandEmpty>No results found.</CommandEmpty>
 						<CommandGroup heading='Go To'>
-							<CommandItem onSelect={() => goTo('/')}>Home</CommandItem>
-							<CommandItem onSelect={() => goTo('/about')}>About</CommandItem>
-							<CommandItem onSelect={() => goTo('/blog')}>Blog</CommandItem>
-							<CommandItem onSelect={() => goTo('/resume')}>Resume</CommandItem>
+							{menuLinks.map((link) => (
+								<CommandItem key={link.path} onSelect={() => goTo(link.path)}>
+									{link.title}
+								</CommandItem>
+							))}
 						</CommandGroup>
 						<CommandSeparator />
 						{ai.supported && (
@@ -276,10 +298,14 @@ export default function CommandPalette() {
 						<CommandGroup heading='General'>
 							<CommandItem
 								onSelect={() => {
-									navigator.clipboard.writeText(window.location.href)
+									void copyLink()
 								}}
 							>
-								Copy Link
+								{copyStatus === 'copied'
+									? 'Copied'
+									: copyStatus === 'failed'
+										? 'Copy failed'
+										: 'Copy Link'}
 							</CommandItem>
 							<CommandItem
 								onSelect={() =>
@@ -291,17 +317,7 @@ export default function CommandPalette() {
 						</CommandGroup>
 						<CommandSeparator />
 						<CommandGroup heading='Theme'>
-							<CommandItem
-								onSelect={() => {
-									const current = document.documentElement.classList.contains('dark')
-										? 'light'
-										: 'dark'
-									localStorage.setItem('theme', current)
-									document.documentElement.classList.toggle('dark')
-								}}
-							>
-								Toggle Theme
-							</CommandItem>
+							<CommandItem onSelect={toggleTheme}>Toggle Theme</CommandItem>
 						</CommandGroup>
 					</CommandList>
 				</>

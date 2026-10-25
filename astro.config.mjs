@@ -7,7 +7,6 @@ import { unified } from '@astrojs/markdown-remark'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeUnwrapImages from 'rehype-unwrap-images'
 import { expressiveCodeOptions } from './src/site.config'
-import { remarkReadingTime } from './src/utils/remarkReadingTime.ts'
 
 import vercel from '@astrojs/vercel'
 
@@ -25,7 +24,6 @@ export default defineConfig({
 		}), sitemap(), icon(), react()],
     markdown: {
         processor: unified({
-            remarkPlugins: [remarkReadingTime],
             rehypePlugins: [
                 rehypeUnwrapImages,
                 [

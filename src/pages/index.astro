@@ -4,6 +4,7 @@ import Section from '../components/Section.astro'
 import Icon from '../components/Icon.astro'
 import PageLayout from '../layouts/BaseLayout.astro'
 import { siteConfig } from '@/site-config'
+import { profile } from '@/data/resume'
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -36,12 +37,7 @@ import { siteConfig } from '@/site-config'
 		</section>
 
 		<Section title='About'>
-			<p class='text-foreground'>
-				I'm a Software Engineer with a product mindset, focused on solutions that go beyond code to
-				address real business needs. My experience spans agile startups and enterprise environments.
-				I specialize in architecting scalable microservices with PHP (Laravel, Symfony), AWS, and
-				Docker, and I actively mentor teams so projects move seamlessly from concept to execution.
-			</p>
+			<p class='text-foreground'>{profile}</p>
 		</Section>
 
 		<Section title='Currently'>

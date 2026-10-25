@@ -47,10 +47,7 @@
 		const target = e.target instanceof Element ? e.target : null
 		if (!target?.closest('#toggleDarkMode')) return
 
-		const root = document.documentElement
-		const dark = root.classList.toggle('dark')
-		requestAnimationFrame(() => {
-			localStorage.setItem('theme', dark ? 'dark' : 'light')
-		})
+		// ThemeProvider owns the state and the persistence.
+		document.dispatchEvent(new CustomEvent('toggle-theme'))
 	})
 </script>
