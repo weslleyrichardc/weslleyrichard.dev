@@ -212,7 +212,7 @@ export default function CommandPalette({
 									void ai.ask(ai.question)
 								}
 							}}
-							className='scrollbar-hide max-h-16 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm placeholder:text-muted-foreground'
+							className='scrollbar-hide max-h-16 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm placeholder:text-muted-foreground focus-visible:outline-none'
 						/>
 					</div>
 					<div className='flex items-center justify-between border-b px-3 py-1.5'>
