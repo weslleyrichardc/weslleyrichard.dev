@@ -21,6 +21,8 @@ export type UseBrowserAi = {
 	status: AiStatus
 	error: string
 	copied: boolean
+	/** Last copy attempt was refused (permissions or insecure context). */
+	copyFailed: boolean
 	isBusy: boolean
 	setQuestion: (value: string) => void
 	ask: (input: string) => Promise<void>
@@ -46,6 +48,7 @@ export function useBrowserAi(): UseBrowserAi {
 	const [status, setStatus] = React.useState<AiStatus>('idle')
 	const [error, setError] = React.useState('')
 	const [copied, setCopied] = React.useState(false)
+	const [copyFailed, setCopyFailed] = React.useState(false)
 
 	const runId = React.useRef(0)
 	const busy = React.useRef(false)
@@ -79,6 +82,7 @@ export function useBrowserAi(): UseBrowserAi {
 		setStatus('idle')
 		setError('')
 		setCopied(false)
+		setCopyFailed(false)
 		destroyAiSession()
 	}, [])
 
@@ -93,6 +97,7 @@ export function useBrowserAi(): UseBrowserAi {
 		setAnswer('')
 		setError('')
 		setCopied(false)
+		setCopyFailed(false)
 		setStatus('thinking')
 
 		try {
@@ -107,7 +112,11 @@ export function useBrowserAi(): UseBrowserAi {
 		} catch (cause) {
 			if (currentRun !== runId.current) return
 			setStatus('error')
-			setError(cause instanceof Error ? cause.message : 'Something went wrong')
+			setError(
+				cause instanceof Error
+					? cause.message
+					: 'Something went wrong. Try asking again in a moment.'
+			)
 		} finally {
 			if (currentRun === runId.current) busy.current = false
 		}
@@ -126,11 +135,15 @@ export function useBrowserAi(): UseBrowserAi {
 			await navigator.clipboard.writeText(text)
 			if (!alive.current) return
 			setCopied(true)
+			setCopyFailed(false)
 			window.clearTimeout(copyTimer.current)
 			copyTimer.current = window.setTimeout(() => setCopied(false), COPY_FEEDBACK_MS)
 		} catch {
 			// Clipboard access can be denied (permissions/insecure context):
-			// keep the answer visible instead of surfacing a hard failure.
+			// keep the answer visible and report it inline instead.
+			if (!alive.current) return
+			setCopied(false)
+			setCopyFailed(true)
 		}
 	}, [answer])
 
@@ -144,6 +157,7 @@ export function useBrowserAi(): UseBrowserAi {
 		status,
 		error,
 		copied,
+		copyFailed,
 		isBusy: status === 'thinking' || status === 'streaming',
 		setQuestion,
 		ask,

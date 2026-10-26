@@ -143,7 +143,8 @@ export async function* askAi(input: string, system?: string): AsyncGenerator<str
 			if (system) inlineSystem = true // last resort: context goes in the first prompt
 		}
 	}
-	if (!session) throw new Error('The browser AI session could not be created')
+	if (!session)
+		throw new Error('The browser AI session could not be created. Retry, or free up disk space')
 
 	const first = inlineSystem ? `${system}\n\nUSER QUESTION: ${input}` : input
 	const stream = session.promptStreaming(first)

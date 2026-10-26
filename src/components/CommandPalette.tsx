@@ -160,6 +160,22 @@ export default function CommandPalette({
 		}
 	}
 
+	// Announce one state change instead of every streamed token.
+	const statusMessage =
+		copyStatus === 'copied'
+			? 'Link copied'
+			: copyStatus === 'failed'
+				? 'Could not copy the link'
+				: ai.copyFailed
+					? 'Could not copy the answer'
+					: ai.status === 'thinking'
+						? 'Thinking'
+						: ai.status === 'error'
+							? ai.error
+							: ai.status === 'done'
+								? 'Answer ready'
+								: ''
+
 	return (
 		<CommandDialog
 			open={open}
@@ -172,6 +188,9 @@ export default function CommandPalette({
 			}}
 			showCloseButton={false}
 		>
+			<p className='sr-only' role='status'>
+				{statusMessage}
+			</p>
 			{aiMode ? (
 				<>
 					<div className='flex items-start border-b px-3 pr-10'>
@@ -242,7 +261,7 @@ export default function CommandPalette({
 						</div>
 					</div>
 					<CommandList ref={listRef} onScroll={updateMoreBelow}>
-						<div className='mb-1 px-3 py-2 text-sm text-foreground' aria-live='polite'>
+						<div className='mb-1 px-3 py-2 text-sm text-foreground'>
 							{ai.status === 'idle' && (
 								<p className='text-sm text-muted-foreground'>
 									Ask anything — the browser built-in AI answers on-device (private, offline, free)
@@ -279,7 +298,8 @@ export default function CommandPalette({
 						ref={searchRef}
 						value={search}
 						onValueChange={setSearch}
-						placeholder='Type a command or search...'
+						aria-label='Search commands'
+						placeholder='Type a command or search…'
 						className='pr-8'
 					/>
 					<CommandList>
