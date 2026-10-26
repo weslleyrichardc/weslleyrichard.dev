@@ -1,6 +1,8 @@
 ---
 import ThemeToggle from '../../components/ThemeToggle.astro'
 import { menuLinks } from '@/site-config'
+
+const pathname = Astro.url.pathname
 ---
 
 <header class='mb-12 flex w-full flex-wrap pb-3 text-sm sm:flex-nowrap sm:justify-start'>
@@ -8,7 +10,9 @@ import { menuLinks } from '@/site-config'
 		class='relative mx-auto flex w-full flex-wrap items-center justify-between gap-y-3 sm:flex-nowrap sm:items-center'
 		aria-label='global'
 	>
-		<a class='flex-none text-xl font-semibold' href='/'> Weslley Richard </a>
+		<a class='flex-none text-xl font-semibold underline-offset-4 hover:underline' href='/'>
+			Weslley Richard
+		</a>
 
 		{
 			/* Labelled by its content so the accessible name includes the
@@ -40,7 +44,8 @@ import { menuLinks } from '@/site-config'
 					.map((link) => (
 						<a
 							href={link.path}
-							class='flex-none text-[1.05rem] font-medium hover:text-foreground/75'
+							aria-current={pathname === link.path ? 'page' : undefined}
+							class='flex-none text-[1.05rem] font-medium underline-offset-4 hover:underline'
 						>
 							{link.title}
 						</a>

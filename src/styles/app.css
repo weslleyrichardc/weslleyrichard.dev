@@ -18,6 +18,7 @@
 
 @layer base {
 	:root {
+		color-scheme: light;
 		--background: 210 33% 99%;
 		--foreground: 240 10% 3.9%;
 		--card: 0 0% 100%;
@@ -40,6 +41,7 @@
 		--radius: 0.5rem;
 	}
 	.dark {
+		color-scheme: dark;
 		--background: 240 10% 3.9%;
 		--foreground: 0 0% 98%;
 		--card: 240 10% 3.9%;
@@ -68,6 +70,48 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+	}
+	:where(a, button, [role='button'], input, textarea, select, summary):focus-visible {
+		outline: 2px solid hsl(var(--ring));
+		outline-offset: 2px;
+	}
+	:where(h1, h2, h3, h4) {
+		scroll-margin-top: 1.5rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	::before,
+	::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+@layer components {
+	.page {
+		@apply flex w-full flex-col gap-y-10;
+	}
+	.page-header {
+		@apply flex flex-col gap-y-3;
+	}
+	.page-title {
+		@apply text-balance text-3xl font-bold leading-tight tracking-tight sm:text-4xl;
+	}
+	.page-lede {
+		@apply max-w-prose text-pretty text-lg text-muted-foreground;
+	}
+	.meta {
+		@apply text-sm text-muted-foreground;
+	}
+	.link-muted {
+		@apply text-sm text-muted-foreground transition-colors hover:text-foreground;
+	}
+	.button-outline {
+		@apply inline-flex w-fit cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium transition-colors hover:bg-accent;
 	}
 }
 
@@ -101,6 +145,33 @@
 }
 
 @media print {
+	/* Paper always gets the light palette. In dark mode the foreground is
+	   near-white, so printing on a white sheet leaves the text invisible or
+	   washed-out gray. */
+	:root,
+	.dark {
+		color-scheme: light;
+		--background: 0 0% 100%;
+		--foreground: 240 10% 3.9%;
+		--card: 0 0% 100%;
+		--card-foreground: 240 10% 3.9%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 240 10% 3.9%;
+		--primary: 240 5.9% 10%;
+		--primary-foreground: 0 0% 98%;
+		--secondary: 240 4.8% 95.9%;
+		--secondary-foreground: 240 5.9% 10%;
+		--muted: 240 4.8% 95.9%;
+		--muted-foreground: 240 3.8% 46.1%;
+		--accent: 240 4.8% 95.9%;
+		--accent-foreground: 240 5.9% 10%;
+		--destructive: 0 72.22% 50.59%;
+		--destructive-foreground: 0 0% 98%;
+		--border: 240 5.9% 90%;
+		--input: 240 5.9% 90%;
+		--ring: 240 5.9% 10%;
+	}
+
 	/* Hide the site chrome so the printed page only holds the content. */
 	main > header,
 	main > footer {

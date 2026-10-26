@@ -120,6 +120,12 @@ export default function CommandPalette({
 		if (aiMode) aiInputRef.current?.focus()
 	}, [aiMode])
 
+	// Coming back from the AI view remounts cmdk's input, so restore focus
+	// (cmdk only focuses on mount of the palette itself).
+	React.useEffect(() => {
+		if (open && !aiMode) searchRef.current?.focus()
+	}, [open, aiMode])
+
 	// Auto-grow the question textarea up to exactly 2 lines; content past
 	// that is still accepted but the view stays clamped and the caret
 	// follows the typing (no scrollbar, no clipped sliver of line 3).
@@ -160,6 +166,22 @@ export default function CommandPalette({
 		}
 	}
 
+	// Announce one state change instead of every streamed token.
+	const statusMessage =
+		copyStatus === 'copied'
+			? 'Link copied'
+			: copyStatus === 'failed'
+				? 'Could not copy the link'
+				: ai.copyFailed
+					? 'Could not copy the answer'
+					: ai.status === 'thinking'
+						? 'Thinking'
+						: ai.status === 'error'
+							? ai.error
+							: ai.status === 'done'
+								? 'Answer ready'
+								: ''
+
 	return (
 		<CommandDialog
 			open={open}
@@ -172,10 +194,16 @@ export default function CommandPalette({
 			}}
 			showCloseButton={false}
 		>
+			<p className='sr-only' role='status'>
+				{statusMessage}
+			</p>
 			{aiMode ? (
 				<>
 					<div className='flex items-start border-b px-3 pr-10'>
-						<MagnifyingGlassIcon className='mr-2 mt-3.5 h-4 w-4 shrink-0 opacity-50' />
+						<MagnifyingGlassIcon
+							aria-hidden='true'
+							className='mr-2 mt-3.5 h-4 w-4 shrink-0 opacity-50'
+						/>
 						<textarea
 							ref={aiInputRef}
 							aria-label='Ask the browser AI'
@@ -190,7 +218,7 @@ export default function CommandPalette({
 									void ai.ask(ai.question)
 								}
 							}}
-							className='scrollbar-hide max-h-16 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground'
+							className='scrollbar-hide max-h-16 min-h-[40px] w-full resize-none bg-transparent py-3 text-sm placeholder:text-muted-foreground focus-visible:outline-none'
 						/>
 					</div>
 					<div className='flex items-center justify-between border-b px-3 py-1.5'>
@@ -207,9 +235,12 @@ export default function CommandPalette({
 									className='rounded-sm p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
 								>
 									{ai.copied ? (
-										<CheckIcon className='h-4 w-4 text-green-600 dark:text-green-400' />
+										<CheckIcon
+											aria-hidden='true'
+											className='h-4 w-4 text-green-600 dark:text-green-400'
+										/>
 									) : (
-										<CopyIcon className='h-4 w-4' />
+										<CopyIcon aria-hidden='true' className='h-4 w-4' />
 									)}
 								</button>
 							)}
@@ -221,7 +252,7 @@ export default function CommandPalette({
 									onClick={() => void ai.retry()}
 									className='rounded-sm p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
 								>
-									<ReloadIcon className='h-4 w-4' />
+									<ReloadIcon aria-hidden='true' className='h-4 w-4' />
 								</button>
 							)}
 							<button
@@ -231,12 +262,12 @@ export default function CommandPalette({
 								onClick={backToCommands}
 								className='rounded-sm p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
 							>
-								<ArrowLeftIcon className='h-4 w-4' />
+								<ArrowLeftIcon aria-hidden='true' className='h-4 w-4' />
 							</button>
 						</div>
 					</div>
 					<CommandList ref={listRef} onScroll={updateMoreBelow}>
-						<div className='mb-1 px-3 py-2 text-sm text-foreground' aria-live='polite'>
+						<div className='mb-1 px-3 py-2 text-sm text-foreground'>
 							{ai.status === 'idle' && (
 								<p className='text-sm text-muted-foreground'>
 									Ask anything — the browser built-in AI answers on-device (private, offline, free)
@@ -261,7 +292,7 @@ export default function CommandPalette({
 							>
 								<span className='inline-flex items-center gap-1'>
 									Scroll for more
-									<ChevronDownIcon className='h-3 w-3 animate-bounce' />
+									<ChevronDownIcon aria-hidden='true' className='h-3 w-3 animate-bounce' />
 								</span>
 							</div>
 						)}
@@ -273,7 +304,8 @@ export default function CommandPalette({
 						ref={searchRef}
 						value={search}
 						onValueChange={setSearch}
-						placeholder='Type a command or search...'
+						aria-label='Search commands'
+						placeholder='Type a command or search…'
 						className='pr-8'
 					/>
 					<CommandList>
@@ -334,9 +366,9 @@ export default function CommandPalette({
 				onClick={clearTextOrClose}
 				title={hasText ? 'Clear text' : 'Close'}
 				aria-label={hasText ? 'Clear text' : 'Close'}
-				className='absolute right-4 top-3.5 z-10 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
+				className='absolute right-4 top-3.5 z-10 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
 			>
-				<Cross2Icon className='h-4 w-4' />
+				<Cross2Icon aria-hidden='true' className='h-4 w-4' />
 			</button>
 		</CommandDialog>
 	)

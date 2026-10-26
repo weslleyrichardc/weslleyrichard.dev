@@ -33,7 +33,7 @@ const status = await api.availability()
 // 'unavailable' | 'downloadable' | 'downloading' | 'available'
 ```
 
-A downloadable model is a real state, not an edge case: the first prompt can trigger a large download. My palette hides the item when the API is unavailable and shows a one-line hint while the model still needs to download. On Firefox and Zen, which don't implement the API, the command does not exist. No disabled button, no "coming soon" — it's simply absent.
+A downloadable model is a real state, not an edge case: the first prompt can trigger a large download. My palette hides the item when the API is unavailable and shows a one-line hint while the model still needs to download. On Firefox and Zen, which don't implement the API, the command does not exist. No disabled button, no “coming soon” — it's simply absent.
 
 Creating a session is one call. Streaming is an async iterable:
 
@@ -53,7 +53,7 @@ That's the core. The rest is the part I underestimated.
 
 ## The context is the feature
 
-A general answer from a local model is not interesting. "Summarize this page" only works if the model can see the page.
+A general answer from a local model is not interesting. “Summarize this page” only works if the model can see the page.
 
 So every question starts with a system prompt built from the current document:
 
@@ -80,7 +80,7 @@ The dialog selector was also a bug in an earlier version. The palette is a plain
 
 Chrome's Prompt API is still moving. Builds disagree about which session options they accept. `expectedInputs` and `expectedOutputs` declare the input and answer languages, and current Chrome warns when the output language is missing. Older builds reject those keys entirely.
 
-The first version retried with a bare `create()` when the options failed. That also dropped the system prompt, so the model answered "please provide the page" to questions about the page. The fix keeps the context at every step (simplified from the real service):
+The first version retried with a bare `create()` when the options failed. That also dropped the system prompt, so the model answered “please provide the page” to questions about the page. The fix keeps the context at every step (simplified from the real service):
 
 ```ts
 let session: LanguageModelSession
