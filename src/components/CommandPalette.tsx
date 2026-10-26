@@ -120,6 +120,12 @@ export default function CommandPalette({
 		if (aiMode) aiInputRef.current?.focus()
 	}, [aiMode])
 
+	// Coming back from the AI view remounts cmdk's input, so restore focus
+	// (cmdk only focuses on mount of the palette itself).
+	React.useEffect(() => {
+		if (open && !aiMode) searchRef.current?.focus()
+	}, [open, aiMode])
+
 	// Auto-grow the question textarea up to exactly 2 lines; content past
 	// that is still accepted but the view stays clamped and the caret
 	// follows the typing (no scrollbar, no clipped sliver of line 3).
