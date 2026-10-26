@@ -109,4 +109,4 @@ The 404 page is the only display-type exception: it keeps its oversized `h1` but
 5. New reusable UI belongs in `src/components/`; new global classes belong in `app.css` and must be documented here.
 6. Keep the page rhythm at `gap-y-10` and the section rhythm at `gap-y-5` unless the page is print-specific.
 7. Use semantic colors and the global focus ring; test both themes and keyboard navigation.
-8. Check narrow screens and the printed resume after changing shared classes.
+8. Check narrow screens and the printed resume after changing shared classes. Print always switches to the light palette, even when the visitor is in dark mode.
