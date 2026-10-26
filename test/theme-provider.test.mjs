@@ -18,23 +18,32 @@ function createPage({ stored, prefersLight = false } = {}) {
 	const listeners = new Map()
 	const storedTheme = new Map(stored ? [['theme', stored]] : [])
 	const mediaListeners = []
+	const createElement = () => {
+		const attributes = new Map()
+		return {
+			attributes,
+			setAttribute: (name, value) => attributes.set(name, value)
+		}
+	}
+	const button = createElement()
+	const metas = [createElement(), createElement()]
 
 	const document = {
 		documentElement: {
 			classList: {
 				contains: (name) => classes.has(name),
-				toggle: (name) => {
-					if (classes.has(name)) {
-						classes.delete(name)
-						return false
-					}
-					classes.add(name)
-					return true
+				toggle: (name, force) => {
+					const next = force ?? !classes.has(name)
+					if (next) classes.add(name)
+					else classes.delete(name)
+					return next
 				}
 			}
 		},
 		addEventListener: (type, handler) =>
-			listeners.set(type, [...(listeners.get(type) ?? []), handler])
+			listeners.set(type, [...(listeners.get(type) ?? []), handler]),
+		querySelector: (selector) => (selector === '#toggleDarkMode' ? button : null),
+		querySelectorAll: (selector) => (selector === 'meta[name="theme-color"]' ? metas : [])
 	}
 
 	const window = {
@@ -56,6 +65,8 @@ function createPage({ stored, prefersLight = false } = {}) {
 		window,
 		storedTheme,
 		mediaListeners,
+		button,
+		metas,
 		run: () => vm.runInContext(script, context),
 		fire: (type, event = {}) => (listeners.get(type) ?? []).forEach((handler) => handler(event)),
 		count: (type) => (listeners.get(type) ?? []).length,
@@ -88,6 +99,24 @@ test('two toggles persist the choice, and a reload restores it', () => {
 	assert.equal(reload.classes.has('dark'), true)
 })
 
+test('syncs the toggle state and browser chrome with the theme', () => {
+	const page = createPage({ prefersLight: true })
+	page.run()
+
+	assert.equal(page.button.attributes.get('aria-pressed'), 'false')
+	assert.deepEqual(
+		page.metas.map((meta) => meta.attributes.get('content')),
+		['#fcfcfd', '#fcfcfd']
+	)
+
+	page.fire('toggle-theme')
+	assert.equal(page.button.attributes.get('aria-pressed'), 'true')
+	assert.deepEqual(
+		page.metas.map((meta) => meta.attributes.get('content')),
+		['#09090b', '#09090b']
+	)
+})
+
 test('the OS only changes the theme while no choice is stored', () => {
 	const page = createPage()
 	page.run()
@@ -108,6 +137,7 @@ test('re-running the script on view transitions keeps one listener of each kind'
 
 	assert.equal(page.window.__themeInit, true)
 	assert.equal(page.count('astro:after-swap'), 1)
+	assert.equal(page.count('astro:page-load'), 1)
 	assert.equal(page.count('toggle-theme'), 1)
 	assert.equal(page.mediaListeners.length, 1)
 })

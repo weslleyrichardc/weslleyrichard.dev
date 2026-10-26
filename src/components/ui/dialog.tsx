@@ -5,12 +5,6 @@ import { Cross2Icon } from '@radix-ui/react-icons'
 
 const Dialog = DialogPrimitive.Root
 
-const DialogTrigger = DialogPrimitive.Trigger
-
-const DialogPortal = DialogPrimitive.Portal
-
-const DialogClose = DialogPrimitive.Close
-
 const DialogOverlay = React.forwardRef<
 	HTMLDivElement,
 	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
@@ -33,7 +27,7 @@ type DialogContentProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.
 
 const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
 	({ className, children, showCloseButton = true, ...props }, ref) => (
-		<DialogPortal>
+		<DialogPrimitive.Portal>
 			<DialogOverlay />
 			<DialogPrimitive.Content
 				ref={ref}
@@ -51,23 +45,10 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
 					</DialogPrimitive.Close>
 				)}
 			</DialogPrimitive.Content>
-		</DialogPortal>
+		</DialogPrimitive.Portal>
 	)
 )
 DialogContent.displayName = DialogPrimitive.Content.displayName
-
-const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />
-)
-DialogHeader.displayName = 'DialogHeader'
-
-const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div
-		className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
-		{...props}
-	/>
-)
-DialogFooter.displayName = 'DialogFooter'
 
 const DialogTitle = React.forwardRef<
 	HTMLHeadingElement,
@@ -93,15 +74,4 @@ const DialogDescription = React.forwardRef<
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
-export {
-	Dialog,
-	DialogPortal,
-	DialogOverlay,
-	DialogTrigger,
-	DialogClose,
-	DialogContent,
-	DialogHeader,
-	DialogFooter,
-	DialogTitle,
-	DialogDescription
-}
+export { Dialog, DialogContent, DialogTitle, DialogDescription }

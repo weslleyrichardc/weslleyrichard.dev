@@ -2,7 +2,7 @@ import type { SiteConfig } from '@/types'
 import type { AstroExpressiveCodeOptions } from 'astro-expressive-code'
 
 export const siteConfig: SiteConfig = {
-	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
+	// Used as the meta author and article:author property (src/components/BaseHead.astro)
 	author: 'Weslley Richard',
 	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
 	title: 'Weslley Richard',
@@ -12,7 +12,7 @@ export const siteConfig: SiteConfig = {
 	// Alt text for the social card image (og:image:alt / twitter:image:alt)
 	socialImageAlt:
 		'Weslley Richard — backend engineer. Distributed systems in PHP with Symfony, Laravel, AWS, Kafka and Docker',
-	// HTML lang property, found in src/layouts/Base.astro L:18
+	// HTML lang property, found in src/layouts/BaseLayout.astro
 	lang: 'en-US',
 	// Meta property, found in src/components/BaseHead.astro L:42
 	ogLocale: 'en_US',
@@ -39,15 +39,15 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 	},
 	{
 		title: 'About Me',
-		path: '/about'
+		path: '/about/'
 	},
 	{
 		title: 'Blog',
-		path: '/blog'
+		path: '/blog/'
 	},
 	{
 		title: 'Resume',
-		path: '/resume'
+		path: '/resume/'
 	}
 ]
 

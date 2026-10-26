@@ -45,7 +45,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <meta content={description} name='description' />
 <meta content={siteConfig.author} name='author' />
 
-{/* Theme Colour (falls back to system scheme; per-preference values) */}
+{/* Theme Colour (system default; ThemeProvider syncs the manual choice) */}
 <meta content='#fcfcfd' media='(prefers-color-scheme: light)' name='theme-color' />
 <meta content='#09090b' media='(prefers-color-scheme: dark)' name='theme-color' />
 

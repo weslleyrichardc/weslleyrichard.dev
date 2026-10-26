@@ -16,16 +16,17 @@
 				)
 			}
 
-			const root = document.documentElement
+			const isDark = newTheme === 'dark'
+			document.documentElement.classList.toggle('dark', isDark)
 
-			// if current dark theme and new theme is dark, return
-			if (newTheme === 'dark' && root.classList.contains('dark')) {
-				return
-			} else if (newTheme === 'light' && !root.classList.contains('dark')) {
-				return
-			}
+			const toggle = document.querySelector('#toggleDarkMode')
+			if (toggle) toggle.setAttribute('aria-pressed', String(isDark))
 
-			root.classList.toggle('dark')
+			// One tag per OS scheme keeps the no-JS default; overwrite both so
+			// the manual choice wins whichever scheme the OS reports.
+			document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+				meta.setAttribute('content', isDark ? '#09090b' : '#fcfcfd')
+			})
 		}
 
 		// The visitor's stored choice wins; otherwise follow the OS.
@@ -36,6 +37,10 @@
 
 		// View Transitions hook to restore theme
 		document.addEventListener('astro:after-swap', () => applyTheme(preferredTheme()))
+
+		// Runs on first load and after each transition, once the header button
+		// that this script sits before exists and can take its aria state.
+		document.addEventListener('astro:page-load', () => applyTheme(preferredTheme()))
 
 		// Follow the OS only while the visitor has not chosen for themselves
 		lightModePref.addEventListener('change', (e) => {

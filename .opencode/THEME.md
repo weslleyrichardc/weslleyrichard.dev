@@ -115,14 +115,6 @@ Navigation items use `text-foreground` with hover states:
 <a href='/about' class='text-foreground hover:text-foreground/75'> About </a>
 ```
 
-#### Buttons
-
-Buttons use the semantic color system automatically:
-
-```astro
-<Button title='Click me' href='/page' />
-```
-
 ## Theme Management
 
 ### Automatic Theme Detection
