@@ -112,28 +112,40 @@ Section titles should always use `text-foreground`:
 Navigation items use `text-foreground` with hover states:
 
 ```astro
-<a href='/about' class='text-foreground hover:text-foreground/75'> About </a>
+<a href='/about/' class='text-foreground hover:text-foreground/75'> About </a>
 ```
 
 ## Theme Management
 
 ### Automatic Theme Detection
 
-The theme automatically detects:
+The effective theme is, in order:
 
-1. User's system preference (`prefers-color-scheme`)
-2. Saved preference from localStorage
-3. Falls back to dark mode as default
+1. The saved choice in localStorage
+2. The operating system preference (`prefers-color-scheme`)
+3. Dark mode as the fallback
+
+The OS preference is only followed while no choice is stored; once the visitor toggles the theme, the stored choice wins.
 
 ### Manual Theme Toggle
 
-Users can toggle themes using the theme toggle button in the header. The preference is saved to localStorage and persists across sessions.
+The header button and the command palette dispatch a `toggle-theme` event. `ThemeProvider.astro` is the only owner of theme state: it applies the theme, persists the choice, and keeps the UI in sync. Components must not toggle `.dark` or write localStorage themselves.
+
+On every apply the provider also:
+
+- sets `aria-pressed` on `#toggleDarkMode` to the effective theme
+- updates both `meta[name="theme-color"]` tags so the mobile browser chrome matches the manual choice
+
+The theme is re-applied on `astro:page-load` and `astro:after-swap`, so it survives view transitions.
 
 ### Theme Implementation
 
 The theming is implemented in:
 
-- `src/components/ThemeProvider.astro` - Theme logic and state management
+- `src/components/ThemeProvider.astro` - the single owner: state, persistence and application
+- `src/components/ThemeToggle.astro` - header button; dispatches `toggle-theme`
+- `src/components/CommandPalette.tsx` - palette action; dispatches `toggle-theme`
+- `src/components/BaseHead.astro` - system-default `theme-color` tags, overwritten by the provider
 - `src/styles/app.css` - CSS custom properties and base styles
 - `tailwind.config.js` - Tailwind color configuration
 
