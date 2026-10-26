@@ -23,7 +23,7 @@ const description = 'Notes on building software, the web, and the occasional sid
 								<time class='meta' datetime={post.data.publishDate.toISOString()}>
 									{getFormattedDate(post.data.publishDate, { timeZone: 'UTC' })}
 								</time>
-								<h2 class='text-xl font-semibold group-hover:text-foreground/75'>
+								<h2 class='text-xl font-semibold underline-offset-4 group-hover:underline'>
 									{post.data.title}
 								</h2>
 								<p class='max-w-prose text-muted-foreground'>{post.data.description}</p>

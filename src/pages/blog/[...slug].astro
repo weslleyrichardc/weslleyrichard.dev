@@ -37,7 +37,7 @@ const minutesRead = getReadingTime(post.body ?? '').text
 >
 	<article class='page'>
 		<header class='flex flex-col gap-y-4'>
-			<a class='link-muted' href='/blog/'> ← Back to all posts </a>
+			<a class='link-muted' href='/blog/'> <span aria-hidden='true'>←</span> Back to all posts </a>
 			<h1 class='page-title'>{post.data.title}</h1>
 			<p class='page-lede'>{post.data.description}</p>
 			<div class='meta flex flex-wrap items-center gap-x-3 gap-y-1'>
@@ -62,13 +62,13 @@ const minutesRead = getReadingTime(post.body ?? '').text
 		</header>
 
 		<div
-			class='prose prose-neutral max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-h2:mb-4 prose-h2:mt-12 prose-h3:mb-3 prose-h3:mt-8 prose-p:leading-relaxed prose-a:text-foreground prose-a:underline prose-a:decoration-border prose-a:underline-offset-4 prose-strong:text-foreground prose-code:before:content-none prose-code:after:content-none prose-li:marker:text-muted-foreground prose-img:rounded-lg prose-hr:border-border'
+			class='prose prose-neutral max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-h2:mb-4 prose-h2:mt-12 prose-h3:mb-3 prose-h3:mt-8 prose-p:leading-relaxed prose-a:text-foreground prose-a:underline prose-a:decoration-border prose-a:underline-offset-4 prose-a:hover:decoration-foreground prose-strong:text-foreground prose-code:before:content-none prose-code:after:content-none prose-li:marker:text-muted-foreground prose-img:rounded-lg prose-hr:border-border'
 		>
 			<Content />
 		</div>
 
 		<footer class='border-t border-border pt-5'>
-			<a class='link-muted' href='/blog/'> ← Back to all posts </a>
+			<a class='link-muted' href='/blog/'> <span aria-hidden='true'>←</span> Back to all posts </a>
 		</footer>
 	</article>
 </PageLayout>
