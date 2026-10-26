@@ -3,7 +3,7 @@ import Section from '@/components/Section.astro'
 import ExperienceItem from '@/components/ExperienceItem.astro'
 import SkillBadge from '@/components/SkillBadge.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
-import { profile, experience, education, skills } from '@/data/resume'
+import { profile, availability, experience, education, skills } from '@/data/resume'
 ---
 
 <PageLayout meta={{ title: 'Resume' }}>
@@ -13,10 +13,7 @@ import { profile, experience, education, skills } from '@/data/resume'
 			<p class='text-muted-foreground'>
 				Backend Software Engineer · PHP / Laravel / Symfony — Tbilisi, Georgia (UTC+4)
 			</p>
-			<p class='text-muted-foreground'>
-				Open to remote full-stack/backend roles (PHP/Laravel preferred) and freelance, consulting,
-				and part-time welcome.
-			</p>
+			<p class='text-muted-foreground'>{availability}</p>
 			<button
 				class='w-fit cursor-pointer rounded border border-border px-2 py-1 text-sm transition-all hover:bg-accent print:hidden'
 				onclick='window.print()'

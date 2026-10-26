@@ -9,7 +9,7 @@ import Header from '@/components/layout/Header.astro'
 import ThemeProvider from '@/components/ThemeProvider.astro'
 import CommandPalette from '@/components/CommandPalette'
 
-import { siteConfig } from '@/site-config'
+import { siteConfig, menuLinks } from '@/site-config'
 
 interface Props {
 	meta: SiteMeta
@@ -29,11 +29,11 @@ const {
 	<body class='flex justify-center bg-background'>
 		<ThemeProvider />
 		{
-			/* client:load is deliberate: the palette advertises Ctrl/Cmd+K and must
-		    answer the very first shortcut. It renders a closed dialog, so its
-		    initial DOM cost is negligible. */
+			/* client:idle with a short timeout keeps React off the critical path
+		    while still hydrating the palette before anyone can reach for
+		    Ctrl/Cmd+K. It renders a closed dialog, so the DOM cost is nil. */
 		}
-		<CommandPalette client:load />
+		<CommandPalette client:idle={{ timeout: 800 }} menuLinks={menuLinks} />
 		<main
 			class='flex min-h-screen w-full max-w-[60rem] flex-col items-center px-6 pb-10 pt-7 font-satoshi text-[0.92rem] leading-relaxed sm:px-10 lg:px-10'
 		>
