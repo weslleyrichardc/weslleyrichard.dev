@@ -114,6 +114,12 @@ export default function CommandPalette({
 		return () => document.removeEventListener('open-command-palette', openPalette)
 	}, [])
 
+	// The AI view replaces the search input, so move focus into the question
+	// box the same way cmdk does for the command input.
+	React.useEffect(() => {
+		if (aiMode) aiInputRef.current?.focus()
+	}, [aiMode])
+
 	// Auto-grow the question textarea up to exactly 2 lines; content past
 	// that is still accepted but the view stays clamped and the caret
 	// follows the typing (no scrollbar, no clipped sliver of line 3).
@@ -173,7 +179,6 @@ export default function CommandPalette({
 						<textarea
 							ref={aiInputRef}
 							aria-label='Ask the browser AI'
-							autoFocus
 							placeholder='Ask anything… (Enter to ask)'
 							rows={1}
 							value={ai.question}

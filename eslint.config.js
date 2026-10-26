@@ -1,5 +1,6 @@
 import astroEslintParser from 'astro-eslint-parser'
 import eslintPluginAstro from 'eslint-plugin-astro'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
 import tsParser from '@typescript-eslint/parser'
 
 export default [
@@ -23,6 +24,20 @@ export default [
 		},
 		rules: {
 			// Add any global rules here
+		}
+	},
+	// React files
+	{
+		files: ['**/*.tsx'],
+		...jsxA11y.flatConfigs.recommended,
+		languageOptions: {
+			parser: tsParser,
+			parserOptions: {
+				tsconfigRootDir: import.meta.dirname,
+				sourceType: 'module',
+				ecmaVersion: 'latest',
+				ecmaFeatures: { jsx: true }
+			}
 		}
 	},
 	// Astro files

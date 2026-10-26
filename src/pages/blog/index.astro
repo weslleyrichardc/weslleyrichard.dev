@@ -27,7 +27,7 @@ const posts = await getBlogPosts()
 				<ul class='flex flex-col divide-y divide-border border-y border-border'>
 					{posts.map((post) => (
 						<li>
-							<a class='group flex flex-col gap-y-2 py-6' href={`/blog/${post.id}`}>
+							<a class='group flex flex-col gap-y-2 py-6' href={`/blog/${post.id}/`}>
 								<time
 									class='text-sm text-muted-foreground'
 									datetime={post.data.publishDate.toISOString()}
