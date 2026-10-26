@@ -1,6 +1,9 @@
 export const profile =
 	"I'm a Software Engineer with a product mindset, focused on solutions that go beyond code to address real business needs. My experience spans agile startups and enterprise environments. I specialize in architecting scalable microservices with PHP (Laravel, Symfony), AWS, and Docker, and I actively mentor teams so projects move seamlessly from concept to execution."
 
+export const availability =
+	'Open to remote full-stack/backend roles (PHP/Laravel preferred) and freelance, consulting, and part-time welcome.'
+
 export interface Experience {
 	title: string
 	company: string

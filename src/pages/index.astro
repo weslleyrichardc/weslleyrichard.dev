@@ -4,7 +4,7 @@ import Section from '../components/Section.astro'
 import Icon from '../components/Icon.astro'
 import PageLayout from '../layouts/BaseLayout.astro'
 import { siteConfig } from '@/site-config'
-import { profile } from '@/data/resume'
+import { profile, availability } from '@/data/resume'
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -29,10 +29,7 @@ import { profile } from '@/data/resume'
 						<Icon name='linkedin' slot='icon' class='h-5 w-5 text-foreground/75' />
 					</Label>
 				</div>
-				<p class='text-center text-muted-foreground'>
-					Open to remote full-stack/backend roles (PHP/Laravel preferred) and freelance, consulting,
-					and part-time welcome.
-				</p>
+				<p class='text-center text-muted-foreground'>{availability}</p>
 			</div>
 		</section>
 
