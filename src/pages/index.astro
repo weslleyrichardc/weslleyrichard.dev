@@ -2,36 +2,35 @@
 import Label from '../components/Label.astro'
 import Section from '../components/Section.astro'
 import Icon from '../components/Icon.astro'
+import PageHeader from '@/components/PageHeader.astro'
 import PageLayout from '../layouts/BaseLayout.astro'
 import { siteConfig } from '@/site-config'
 import { profile, availability } from '@/data/resume'
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
-	<div class='flex w-full flex-col gap-y-10'>
-		<section class='flex flex-col items-center gap-y-7'>
-			<div class='flex flex-col items-center gap-y-4'>
-				<h1 class='text-3xl font-bold'>Weslley Richard</h1>
-				<p class='text-lg text-muted-foreground'>
-					Backend Software Engineer · PHP / Laravel / Symfony
-				</p>
-				<div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
-					<Label title='Tbilisi, Georgia'>
-						<Icon name='location' slot='icon' />
-					</Label>
-					<Label
-						title='Connect on Linkedin'
-						as='a'
-						href={siteConfig.socialLinks.linkedin}
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						<Icon name='linkedin' slot='icon' class='h-5 w-5 text-foreground/75' />
-					</Label>
-				</div>
-				<p class='text-center text-muted-foreground'>{availability}</p>
+	<div class='page'>
+		<PageHeader
+			title='Weslley Richard'
+			description='Backend Software Engineer · PHP / Laravel / Symfony'
+			align='center'
+		>
+			<div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
+				<Label title='Tbilisi, Georgia'>
+					<Icon name='location' slot='icon' />
+				</Label>
+				<Label
+					title='Connect on Linkedin'
+					as='a'
+					href={siteConfig.socialLinks.linkedin}
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					<Icon name='linkedin' slot='icon' class='h-5 w-5 text-foreground/75' />
+				</Label>
 			</div>
-		</section>
+			<p class='text-center text-muted-foreground'>{availability}</p>
+		</PageHeader>
 
 		<Section title='About'>
 			<p class='text-foreground'>{profile}</p>

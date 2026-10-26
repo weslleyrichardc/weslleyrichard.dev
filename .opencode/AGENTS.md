@@ -17,9 +17,17 @@
 - **astro.config.mjs**: static output on Vercel, canonical `site` is the `www` domain, sitemap, prefetch, React, Tailwind and Expressive Code. Markdown external links get `rel="nofollow noopener noreferrer"`.
 - **content.config.ts**: blog collection loads `**/*.md` only. See CONTENT.md.
 - **src/data/resume.ts**: single source for profile, availability, experience, education and skills (home, about and resume pages).
-- **Styles**: `src/styles/app.css` holds the CSS custom properties; `tailwind.config.js` maps them to semantic classes.
+- **Styles**: `src/styles/app.css` holds the CSS custom properties and shared component classes; `tailwind.config.js` maps them to semantic classes. See DESIGN.md for layout and typography.
 
 ## Project Rules
+
+### Design system
+
+- Use `PageHeader` for every page `h1` and `Section` for top-level sections. Wrap page content in `.page`.
+- Use the shared classes (`.page-title`, `.page-lede`, `.meta`, `.link-muted`, `.button-outline`) before inventing a one-off utility combination.
+- Keep one content width (`max-w-content`) and one page rhythm (`gap-y-10`); see DESIGN.md.
+- New reusable UI belongs in `src/components/`; new global classes belong in `app.css` and must be documented in DESIGN.md.
+- Do not remove the global `:focus-visible` outline. Test new UI in both themes, from the keyboard, and on a narrow screen.
 
 ### Theme
 

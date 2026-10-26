@@ -2,25 +2,22 @@
 import Section from '@/components/Section.astro'
 import ExperienceItem from '@/components/ExperienceItem.astro'
 import SkillBadge from '@/components/SkillBadge.astro'
+import PageHeader from '@/components/PageHeader.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import { profile, availability, experience, education, skills } from '@/data/resume'
 ---
 
 <PageLayout meta={{ title: 'Resume' }}>
-	<div class='resume-page flex w-full flex-col gap-y-10'>
-		<header class='flex flex-col gap-y-2'>
-			<h1 class='text-3xl font-bold'>Weslley Richard</h1>
-			<p class='text-muted-foreground'>
-				Backend Software Engineer · PHP / Laravel / Symfony — Tbilisi, Georgia (UTC+4)
-			</p>
+	<div class='page resume-page'>
+		<PageHeader
+			title='Weslley Richard'
+			description='Backend Software Engineer · PHP / Laravel / Symfony — Tbilisi, Georgia (UTC+4)'
+		>
 			<p class='text-muted-foreground'>{availability}</p>
-			<button
-				class='w-fit cursor-pointer rounded border border-border px-2 py-1 text-sm transition-all hover:bg-accent print:hidden'
-				onclick='window.print()'
-			>
+			<button class='button-outline print:hidden' type='button' onclick='window.print()'>
 				Print / Save as PDF
 			</button>
-		</header>
+		</PageHeader>
 
 		<Section title='Profile'>
 			<p class='text-foreground'>{profile}</p>

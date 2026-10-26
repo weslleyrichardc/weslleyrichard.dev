@@ -1,6 +1,6 @@
 # Theming System
 
-This document outlines the theming system used in this project, including color schemes, usage guidelines, and best practices.
+This document outlines the theming system used in this project, including color schemes, usage guidelines, and best practices. For layout, typography and shared components, see DESIGN.md.
 
 ## Overview
 

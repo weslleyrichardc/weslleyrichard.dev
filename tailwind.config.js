@@ -15,6 +15,9 @@ const config = {
 			}
 		},
 		extend: {
+			maxWidth: {
+				content: '60rem'
+			},
 			colors: {
 				border: 'hsl(var(--border) / <alpha-value>)',
 				input: 'hsl(var(--input) / <alpha-value>)',
