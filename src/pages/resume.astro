@@ -4,19 +4,32 @@ import ExperienceItem from '@/components/ExperienceItem.astro'
 import SkillBadge from '@/components/SkillBadge.astro'
 import PageHeader from '@/components/PageHeader.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
+import { siteConfig } from '@/site-config'
 import { profile, availability, experience, education, skills } from '@/data/resume'
 ---
 
-<PageLayout meta={{ title: 'Resume' }}>
+<PageLayout
+	meta={{
+		title: 'Resume — PHP, Laravel, Symfony, AWS',
+		description:
+			'One-page resume: backend engineer with PHP, Laravel, Symfony, AWS and microservices experience. Download it as a PDF.'
+	}}
+>
 	<div class='page resume-page'>
 		<PageHeader
 			title='Weslley Richard'
 			description='Backend Software Engineer · PHP / Laravel / Symfony — Tbilisi, Georgia (UTC+4)'
 		>
 			<p class='text-muted-foreground print:hidden'>{availability}</p>
-			<button class='button-outline print:hidden' type='button' onclick='window.print()'>
-				Print / Save as PDF
-			</button>
+			<div class='flex flex-wrap gap-3 print:hidden'>
+				<a class='button-outline' href={siteConfig.socialLinks.email}
+					>Available for hire — email me</a
+				>
+				<a class='button-outline' href='/resume.pdf' download>Download PDF</a>
+				<button class='button-outline' type='button' onclick='window.print()'>
+					Print / Save as PDF
+				</button>
+			</div>
 		</PageHeader>
 
 		<Section title='Profile'>

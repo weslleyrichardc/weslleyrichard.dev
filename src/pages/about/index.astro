@@ -4,14 +4,29 @@ import ExperienceItem from '@/components/ExperienceItem.astro'
 import SkillBadge from '@/components/SkillBadge.astro'
 import PageHeader from '@/components/PageHeader.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
-import { profile, experience, skills } from '@/data/resume'
+import { experience, skills } from '@/data/resume'
 ---
 
-<PageLayout meta={{ title: 'About Me' }}>
+<PageLayout
+	meta={{
+		title: 'About — backend engineer in Tbilisi',
+		description:
+			'Backend engineer in Tbilisi working in PHP, Laravel and Symfony: microservices on AWS, integrations, and mentoring developers.'
+	}}
+>
 	<div class='page'>
 		<PageHeader title='About Me' />
 		<Section title='Profile'>
-			<p class='text-foreground'>{profile}</p>
+			<p class='text-foreground'>
+				I started writing backend code in 2019 with internal systems and scheduling tools, moved to
+				client backends, then to microservices and integrations. Most of it has been PHP with
+				Laravel and Symfony, with RabbitMQ, Redis and Oracle, MySQL or PostgreSQL behind it, and AWS
+				underneath.
+			</p>
+			<p class='text-foreground'>
+				What I care about is the unglamorous part: a queue that does not lose messages, an
+				integration that survives a vendor outage, a codebase a new hire can read in a week.
+			</p>
 		</Section>
 		<Section title='Experience'>
 			<ul class='space-y-4 text-muted-foreground'>

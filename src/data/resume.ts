@@ -1,5 +1,5 @@
 export const profile =
-	"I'm a Software Engineer with a product mindset, focused on solutions that go beyond code to address real business needs. My experience spans agile startups and enterprise environments. I specialize in architecting scalable microservices with PHP (Laravel, Symfony), AWS, and Docker, and I actively mentor teams so projects move seamlessly from concept to execution."
+	"I'm a Software Engineer focused on solutions that go beyond code to address real business needs. My experience spans agile startups and enterprise environments. I specialize in architecting scalable microservices with PHP (Laravel, Symfony), AWS, and Docker, and I actively mentor teams so projects move seamlessly from concept to execution."
 
 export const availability =
 	'Open to remote full-stack/backend roles (PHP/Laravel preferred) and freelance, consulting, and part-time welcome.'
@@ -30,7 +30,7 @@ export const experience: Array<Experience> = [
 		period: 'Sep 2022 – Apr 2023',
 		employmentType: 'Full-time',
 		description:
-			'Maintained critical integrations with Symfony, Oracle DB and RabbitMQ; expanded the platform for product integrations.'
+			'Maintained critical integrations with Symfony, Oracle DB and RabbitMQ; expanded the platform for third-party integrations.'
 	},
 	{
 		title: 'Full Stack Software Engineer',

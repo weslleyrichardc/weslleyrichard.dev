@@ -62,7 +62,7 @@ Only `latest` is force-pushed. Never force-push `main` or a version tag — if a
 ```bash
 git rev-list -n1 v1.9
 git rev-list -n1 latest        # both must print the same commit
-grep '"version"' package.json  # must be 1.9.0
+grep '"version"' package.json  # must match the tag being released
 git ls-remote --tags origin | grep -E 'refs/tags/(v1.9|latest)'
 git status --short --branch    # clean, main up to date
 ```

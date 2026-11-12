@@ -21,10 +21,6 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <title>{siteTitle}</title>
 
 {/* Icons / Favicon */}
-<!-- <link href="favicon/favicon.ico" rel="icon" sizes="any" />
-<link href="favicon/icon.svg" rel="icon" type="image/svg+xml" />
-<link href="/apple-touch-icon.png" rel="apple-touch-icon" />
-<link href="/manifest.webmanifest" rel="manifest" /> -->
 
 <link rel='apple-touch-icon' sizes='180x180' href='/favicon/apple-touch-icon.png' />
 <link rel='icon' type='image/png' sizes='32x32' href='/favicon/favicon-32x32.png' />
@@ -39,6 +35,21 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 
 {/* Canonical URL */}
 <link rel='canonical' href={canonicalURL} />
+
+{/* Person entity for search engines; only facts shown on the site */}
+<script
+	type='application/ld+json'
+	set:html={JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Person',
+		name: siteConfig.author,
+		jobTitle: 'Backend Software Engineer',
+		url: new URL('/', Astro.site).href,
+		email: siteConfig.socialLinks.email.replace('mailto:', ''),
+		address: { '@type': 'PostalAddress', addressLocality: 'Tbilisi', addressCountry: 'GE' },
+		sameAs: [siteConfig.socialLinks.linkedin, siteConfig.socialLinks.github]
+	})}
+/>
 
 {/* Primary Meta Tags */}
 <meta content={siteTitle} name='title' />
