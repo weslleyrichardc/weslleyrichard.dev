@@ -14,7 +14,7 @@ Chrome can answer a question about the page you're reading without sending the p
 
 There is no API key, no backend, and no prompt leaving the laptop. The model is the one Chrome or Edge already ships, running on your machine. The site is a static Astro build on Vercel, and it stays that way.
 
-I wanted to see whether a browser feature could carry a real product interaction without adding a server, an account, or a monthly bill. It can. But most of the work was not about the model.
+I wanted to see whether a browser feature could carry a real interaction without adding a server, an account, or a monthly bill. It can. But most of the work was not about the model.
 
 ## The API is small
 
