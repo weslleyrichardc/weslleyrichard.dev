@@ -15,10 +15,18 @@ const {
 } = Astro.props
 
 const href = siteConfig.socialLinks[name]
+// A mailto in a new tab leaves an empty window behind; only external sites open one.
+const external = name !== 'email'
 
 const label = name === 'github' ? 'GitHub' : name === 'linkedin' ? 'LinkedIn' : 'Email'
 ---
 
-<a class={cn(className)} href={href} target='_blank' rel='noopener noreferrer' aria-label={label}>
+<a
+	class={cn(className)}
+	href={href}
+	target={external ? '_blank' : undefined}
+	rel={external ? 'noopener noreferrer' : undefined}
+	aria-label={label}
+>
 	<Icon name={name} class='h-4 w-4 flex-shrink-0' />
 </a>
