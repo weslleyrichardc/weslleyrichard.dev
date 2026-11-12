@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro'
 import PageHeader from '@/components/PageHeader.astro'
 import PageLayout from '../layouts/BaseLayout.astro'
 import { siteConfig } from '@/site-config'
-import { profile, availability } from '@/data/resume'
+import { availability } from '@/data/resume'
 ---
 
 <PageLayout meta={{ title: 'Backend Software Engineer — PHP, Laravel, Symfony' }}>
@@ -38,7 +38,11 @@ import { profile, availability } from '@/data/resume'
 		</PageHeader>
 
 		<Section title='About'>
-			<p class='text-foreground'>{profile}</p>
+			<p class='text-foreground'>
+				I'm a backend engineer, mostly PHP with Laravel and Symfony. Since 2019 I've worked on
+				internal systems, client backends and microservices on AWS, and mentored developers along
+				the way.
+			</p>
 			<p class='text-foreground'>
 				At Cloudfox, the anti-fraud system I co-developed cut fraud and chargebacks by about 60%.
 			</p>
