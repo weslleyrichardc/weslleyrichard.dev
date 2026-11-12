@@ -7,7 +7,13 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 import { profile, experience, skills } from '@/data/resume'
 ---
 
-<PageLayout meta={{ title: 'About Me' }}>
+<PageLayout
+	meta={{
+		title: 'About — backend engineer in Tbilisi',
+		description:
+			'Backend engineer in Tbilisi working in PHP, Laravel and Symfony: microservices on AWS, integrations, and mentoring developers.'
+	}}
+>
 	<div class='page'>
 		<PageHeader title='About Me' />
 		<Section title='Profile'>
