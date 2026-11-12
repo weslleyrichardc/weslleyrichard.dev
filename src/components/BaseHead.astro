@@ -40,6 +40,21 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 {/* Canonical URL */}
 <link rel='canonical' href={canonicalURL} />
 
+{/* Person entity for search engines; only facts shown on the site */}
+<script
+	type='application/ld+json'
+	set:html={JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Person',
+		name: siteConfig.author,
+		jobTitle: 'Backend Software Engineer',
+		url: new URL('/', Astro.site).href,
+		email: siteConfig.socialLinks.email.replace('mailto:', ''),
+		address: { '@type': 'PostalAddress', addressLocality: 'Tbilisi', addressCountry: 'GE' },
+		sameAs: [siteConfig.socialLinks.linkedin, siteConfig.socialLinks.github]
+	})}
+/>
+
 {/* Primary Meta Tags */}
 <meta content={siteTitle} name='title' />
 <meta content={description} name='description' />
